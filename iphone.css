@@ -1,0 +1,62 @@
+.iphone{
+	background: white;
+}
+
+.iphone .warning{
+	text-align: center;
+	color: red;
+}
+.iphone .warning a, .iphone .apply a{
+	color: currentColor;
+}
+.iphone .apply{
+	text-align: center;
+	color: green;
+}
+.iphone .header{
+	text-align: center;
+	font-weight: bold;
+}
+
+.iphone .headerLink{
+	display:inline-block;
+	color:blue;
+	font-size:12pt;
+	font-weight: bold;
+}
+
+.iphone .menu{
+	display: block;
+	padding: 3px;
+}
+
+.iphone .menu a{
+	vertical-align: middle;
+}
+
+.iphone .menu img{
+	vertical-align: middle;
+}
+
+.iphone .menu:nth-child(n){
+	border-bottom-width: 0px;
+	box-shadow: 1px 2px 0px -1px silver;
+}
+.iphone .menu:last-child{
+	border-bottom-width: 0px;
+	box-shadow: none;
+}
+
+.iphone .menu .param{
+	width: 95px;
+	display: inline-block;
+}
+.iphone .menu .value{
+	width: calc( 100% - 105px);
+	display: inline-block;
+	text-align: right;
+}
+.iphone .menu .value input{
+	width: 90%;
+	margin-right: 3px;
+}

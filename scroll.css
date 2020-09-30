@@ -1,0 +1,24 @@
+:root{
+	--scrollbar-width: thin; /* or `auto` or `none` */
+	--scrollbar-width-val: 7px;
+	--scrollbar-track-color: transparent;
+	--scrollbar-color: rgba( 70, 70, 70, .75);
+}
+
+html, body, .scrollContent{
+	scrollbar-width: var(--scrollbar-width);
+	scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
+}
+body::-webkit-scrollbar, .scrollContent::-webkit-scrollbar{
+    width: var(--scrollbar-width-val);
+}
+body::-webkit-scrollbar-track, .scrollContent::-webkit-scrollbar-track{
+    background-color: var(--scrollbar-track-color);
+}
+body::-webkit-scrollbar-thumb, .scrollContent::-webkit-scrollbar-thumb{
+    background-color: var(--scrollbar-color);
+}
+
+.scrollContent{
+	overflow: auto;
+}
