@@ -1,0 +1,47 @@
+@charset "utf-8";
+@font-face {
+    font-family:'PlayRegular';
+    src:local('вє'), url('font/play-regular-webfont.ttf') format('truetype'), url('font/play-regular-webfont.svg#PlayRegular') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+@font-face {
+    font-family:'Segoe UI Light';
+    src:url(font/segoeuil.ttf);
+    font-weight:normal;
+    font-style:normal;
+}
+@font-face {
+    font-family:'Segoe UI';
+    src:url(font/segoeui.ttf);
+    font-weight:normal;
+    font-style:normal;
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans-Regular'),
+        url(font/openSans.woff) format('woff'),
+        url(font/openSans.ttf) format('truetype')
+}
+code{
+	font-family:'PlayRegular';
+	-webkit-touch-callout: default; /* iOS Safari */
+    -webkit-user-select: text; /* Safari */
+     -khtml-user-select: text; /* Konqueror HTML */
+       -moz-user-select: text; /* Firefox */
+        -ms-user-select: text; /* Internet Explorer/Edge */
+            user-select: text; /* Non-prefixed version, currently */
+}
+body{
+	/*	font:small Verdana,Sans-serif;	*/
+	font-family:'Segoe UI',Sans,Arial;
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
