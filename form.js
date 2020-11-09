@@ -11,12 +11,18 @@ function onUpdateParam( input )
 
 	var type			= input.lang;
 	var name			= input.name;
+	var action			= input.getAttribute( "data-action" );
 	var cmd				= input.getAttribute( "data-cmd" );
 	var id				= input.getAttribute( "data-id" );
 
-	formRequest.open( "POST", input.action, false );
+	if( action == undefined || action == "" ){
+		console.log( "form.js: onUpdateParam: action", action );
+		return;
+	}
+
+	formRequest.open( "POST", action, false );
 	formRequest.setRequestHeader( 'Content-type','application/x-www-form-urlencoded' );
-	var string;
+	var string			= "";
 
 	if( cmd != "" )		string += "cmd=" + cmd;
 	if( id != "" )		string += "&data[id]=" + id;
