@@ -1,6 +1,35 @@
 var formRequest					= makeHttpObject();
 var formViewBoxID				= "";
 
+function onUpdateParam( input )
+{
+	var statusBoxObj	= document.getElementById( input.name + "_status" );
+	if( statusBoxObj == undefined ){
+		console.log( "form.js: onUpdateParam: statusBoxObj not found", input.name );
+		return;
+	}
+
+	var type			= input.lang;
+	var name			= input.name;
+	var cmd				= input.getAttribute( "data-cmd" );
+	var id				= input.getAttribute( "data-id" );
+
+	formRequest.open( "POST", input.action, false );
+	formRequest.setRequestHeader( 'Content-type','application/x-www-form-urlencoded' );
+	var string;
+
+	if( cmd != "" )		string += "cmd=" + cmd;
+	if( id != "" )		string += "&data[id]=" + id;
+	if( type != "" )	string += "&data[type]=" + type;
+	if( name != "" )	string += "&data[param]=" + name;
+
+	string += "&data[value]=" + input.value;
+
+	formRequest.send( string );
+
+	statusBoxObj.innerHTML = formRequest.responseText;
+}
+
 function changeParam( form, viewBoxID )
 {
 	var viewBoxObj = document.getElementById( viewBoxID );
@@ -43,7 +72,7 @@ function uploadForm( form, viewBoxID )
 	if( viewBoxObj == undefined ){
 		viewBoxObj = document.getElementById( formViewBoxID );
 		if( viewBoxObj == undefined ){
-			console.log( "form.js: changeParam: viewBoxObj not found" );
+			console.log( "form.js: uploadForm: viewBoxObj not found" );
 			return;
 		}
 	}
