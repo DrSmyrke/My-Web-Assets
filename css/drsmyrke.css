@@ -4,7 +4,7 @@ body{
 	transition: none;
 	background: #E6E4E7;
 	padding-right: 5px;
-	background-image: url("/data/images/line.png"), url("/data/images/fon.png");
+	background-image: url("/images/line.png"), url("/images/fon.png");
 }
 a{
 	text-decoration:none;
