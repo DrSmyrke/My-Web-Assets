@@ -42,6 +42,10 @@ a{
 
 .a.selected, .a2.selected{ background: rgba( 100, 100, 100,0.4); }
 
+.languageButtons{
+	display: flex;
+	align-items: center;
+}
 .languageButtons img{
 	cursor: pointer;
 	margin: 10px;
