@@ -9,8 +9,14 @@ var colpicData				= {
 	"targetLayer": -1,
 	"button": undefined,
 	"mouseDown": false,
+	"mousePickerOut": true,
 	"selectPreset": undefined,
 	"canvas": undefined,
+	"previewBox": undefined,
+	"hexwBox": undefined,
+	"removePresetButton": undefined,
+	"presetsBox": undefined,
+	"saturSlider": undefined,
 };
 
 
@@ -81,9 +87,14 @@ function colpick_init()
 		divPalitra.height	= colpicData.canvas.height;
 
 		divPalitra.onmousedown = function(e){
+			if( colpicData.saturSlider != undefined ) colpicData.saturSlider.value = 100;
 			colpicData.mouseDown = true;
+			colpick_moveSelector( e );
 		};
 		divPalitra.onmouseup = function(e){
+			colpicData.mouseDown = false;
+		};
+		divPalitra.onmouseover = function(e){
 			colpicData.mouseDown = false;
 		};
 
@@ -98,6 +109,27 @@ function colpick_init()
 
 	div.appendChild( divPalitra );
 
+	var divSaturSlider = document.createElement( "input" );
+
+		divSaturSlider.className		= "sliderSaturation";
+		divSaturSlider.type				= "range";
+		divSaturSlider.min				= 0;
+		divSaturSlider.max				= 100;
+		divSaturSlider.value			= 100;
+		divSaturSlider.width			= colpicData.canvas.width;
+		divSaturSlider.style.display	= "block";
+		divSaturSlider.style.width		= colpicData.canvas.width + "px";
+
+		divSaturSlider.onchange = function(e){
+			colpicData.hsb.s			= this.value;
+			recolorLayer( colpicData.targetlayer, colpicData.hsb );
+			colpicData.rgb				= hsbToRgb( colpicData.hsb );
+			colpick_updatePreviewColor( e.target.parentNode, colpicData.rgb );
+		};
+
+	div.appendChild( divSaturSlider );
+	colpicData.saturSlider = divSaturSlider;
+
 		//preview circle and hex field
 		var divControlBox = document.createElement( "div" );
 
@@ -108,11 +140,12 @@ function colpick_init()
 
 			var divPreview = document.createElement( "div" );
 
-			divPreview.style.width			= "32px";
-			divPreview.style.height			= "32px";
+			divPreview.style.width			= "24px";
+			divPreview.style.height			= "24px";
 			divPreview.style.borderRadius	= "24px";
 
 		divControlBox.appendChild( divPreview );
+		colpicData.previewBox = divPreview;
 
 			var divHexField = document.createElement( "input" );
 
@@ -136,6 +169,8 @@ function colpick_init()
 			};
 
 		divControlBox.appendChild( divHexField );
+		colpicData.hexBox = divHexField;
+
 			var divChangeBtn = document.createElement( "img" );
 				divChangeBtn.src				= "/data/images/button_edit.png";
 				divChangeBtn.style.cursor		= "pointer";
@@ -169,11 +204,11 @@ function colpick_init()
 					colpicData.selectPreset.remove();
 
 					//hide save/remove buttons
-					var removeB		= colpic_getRemovePresetButton( div );
-					if( removeB != undefined ) removeB.style.visibility = "hidden";
+					if( colpicData.removePresetButton != undefined ) colpicData.removePresetButton.style.visibility = "hidden";
 					/////////////////////////
 				};
 			divPresetsControlBox.appendChild( divPresetsRemoveBtn );
+			colpicData.removePresetButton = divPresetsRemoveBtn;
 
 		divPresetsBox.appendChild( divPresetsControlBox );
 
@@ -185,16 +220,23 @@ function colpick_init()
 			divPresets.style.textAlign				= "left";
 
 		divPresetsBox.appendChild( divPresets );
+		colpicData.presetsBox = divPresets;
 
 	div.appendChild( divPresetsBox );
 
 	colpic_drawBackground( div );
 
 	//Hide when user clicks outside
-	document.addEventListener('mousedown', colpick_hide);
-	div.onmousedown = function( ev ){
-		ev.stopPropagation();
-		return false;
+	document.addEventListener('mousedown', function(ev){
+		if( colpicData.mousePickerOut ) colpick_hide();
+	});
+	div.onmouseover = function( ev ){
+		colpicData.mousePickerOut = false;
+	}
+	div.onmouseout = function( ev ){
+		colpicData.mousePickerOut = true;
+	//	ev.stopPropagation();
+	//	return false;
 	};
 
 	document.body.appendChild( div );
@@ -296,21 +338,12 @@ function colpic_getRGBfromObject( obj )
 	return rgb;
 }
 
-function colpic_getRemovePresetButton( obj )
-{
-	if( obj == undefined ) return undefined;
-	if( obj.childNodes[3] == undefined ) return undefined;
-	if( obj.childNodes[3].childNodes[0] == undefined ) return undefined;
-
-	var button = obj.childNodes[3].childNodes[0].childNodes[1];
-
-	return button;
-}
-
 function colpic_insertPreset( rgb, obj )
 {
-	var presetsBox		= ( obj != undefined ) ? obj.childNodes[1] : colpick_getBox().childNodes[3].childNodes[1];
-	if( presetsBox == undefined ) return;
+	if( colpicData.presetsBox == undefined ){
+		console.log( "colpic_insertPreset", colpicData.presetsBox );
+		return;
+	}
 
 	//console.log( "colpic_insertPreset", presetsBox, rgb, rgbToHex( rgb ) );
 
@@ -325,13 +358,13 @@ function colpic_insertPreset( rgb, obj )
 		colpicData.selectPreset = this;
 
 		//show remove buttons
-		var removeB		= colpic_getRemovePresetButton( this.parentNode.parentNode.parentNode );
-		if( removeB != undefined ) removeB.style.visibility = "visible";
+		if( colpicData.removePresetButton != undefined ) colpicData.removePresetButton.style.visibility = "visible";
 		/////////////////////////
 
 	}, false);
 
-	presetsBox.appendChild( btn );
+	colpicData.presetsBox.appendChild( btn );
+	colpicData.presetsBox.scroll( 0, 10000 );
 }
 
 function colpic_addPreset( event )
@@ -346,9 +379,7 @@ function colpic_setColorHEX( obj, hex )
 {
 	if( obj == undefined || hex == undefined ) return;
 	if( hex == "" ) return;
-
 	var rgb			= hexToRgb( hex );
-
 	colpic_setColorRGB( obj, rgb );
 }
 
@@ -387,16 +418,21 @@ function colpick_open( title, button, event )
 
 	if( targetlayer != NaN && targetlayer != undefined ) colpicData.targetlayer = targetlayer;
 
-	console.log( "colpick_open", targetlayer, box.clientHeight, box );
+	//console.log( "colpick_open", event );
 
-	colpicData.pos.x			= ( mousePos.x + 3 );
-	colpicData.pos.y			= ( mousePos.y + 3 );
-	var ry						= colpicData.pos.y + box.clientHeight + 100;
-
-	if( ry > screen.availHeight ){
-		colpicData.pos.y		-= ry - screen.availHeight + 40;
-		//console.log( ry, screen.availHeight, y, box.clientHeight );
+	if( event.clientY != undefined ){
+		colpicData.pos.x			= ( event.clientX + 3 );
+		colpicData.pos.y			= ( event.clientY + 3 );
 	}
+
+	//colpicData.pos.x			= ( e.x + 3 );
+	//colpicData.pos.y			= ( mousePos.y + 3 );
+	//var ry						= colpicData.pos.y + box.clientHeight + 100;
+
+	//if( ry > screen.availHeight ){
+	//	colpicData.pos.y		-= ry - screen.availHeight + 40;
+		//console.log( ry, screen.availHeight, y, box.clientHeight );
+	//}
 
 	box.style.top	= colpicData.pos.y + "px";
 	box.style.left	= colpicData.pos.x + "px";
@@ -407,8 +443,7 @@ function colpick_open( title, button, event )
 	colpicData.mouseDownHUE = false;
 
 	//hide save/remove buttons
-	var removeB		= colpic_getRemovePresetButton( box );
-	if( removeB != undefined ) removeB.style.visibility = "hidden";
+	if( colpicData.removePresetButton != undefined ) colpicData.removePresetButton.style.visibility = "hidden";
 	/////////////////////////
 
 	if( button != undefined ){
@@ -431,24 +466,18 @@ function colpick_updatePreviewColor( obj, rgb )
 {
 	if( obj == undefined || rgb == undefined ) return;
 
-	if( obj.childNodes[2] == undefined ){
-		//console.log( "colpick_updatePreviewColor",obj );
+	if( obj == undefined ){
+		console.log( "colpick_updatePreviewColor",obj );
 		return;
 	}
 
 	//console.log( "colpick_updatePreviewColor", rgb );
 
-	var previewBox		= obj.childNodes[2].childNodes[0];
-	var hexBox			= obj.childNodes[2].childNodes[1];
 	var backroundStr	= "rgb( " + rgb.r.toString() + ", " + rgb.g.toString() + ", " + rgb.b.toString() + " )";
 
-	if( !colpicControls.manualInput && hexBox != undefined )	hexBox.value		= "#" + rgbToHex( rgb );
-
-	if( previewBox != undefined ) previewBox.style.background = backroundStr;
-
-	if( colpicData.button != undefined ){
-		colpicData.button.style.background = backroundStr;
-	}
+	if( !colpicControls.manualInput && colpicData.hexBox != undefined )	colpicData.hexBox.value		= "#" + rgbToHex( rgb );
+	if( colpicData.previewBox != undefined ) colpicData.previewBox.style.background = backroundStr;
+	if( colpicData.button != undefined ) colpicData.button.style.background = backroundStr;
 }
 
 function colpick_getBox()

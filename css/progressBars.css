@@ -1,0 +1,15 @@
+.progressBar{
+	border: 2px solid rgba(0,0,0,0.7);
+	background-repeat: no-repeat;
+}
+
+.progressBar.orange{
+	background-image: linear-gradient(0deg,rgb(255,128,0) 0%,rgb(255,128,0) 1%,rgb(255,201,38) 99%,rgb(255,201,38) 100%);
+}
+
+.progressBar.green{
+	background-image: linear-gradient(0deg,rgb(92,181,25) 0%,rgb(92,181,25) 1%,rgb(217,242,153) 99%,rgb(217,242,153) 100%);
+}
+.progressBar.blue{
+	background-image: linear-gradient(0deg,rgb(25, 67, 181) 0%,rgb(82, 102, 190) 1%,rgb(159, 179, 216) 99%,rgb(153, 194, 242) 100%);
+}
