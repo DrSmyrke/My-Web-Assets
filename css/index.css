@@ -4,6 +4,8 @@ body{
 	background: #E6E4E7;
 	padding-right: 5px;
 	background-image: url("/images/line.png"), url("/images/fon.png");
+	width: 1176px;
+	margin: auto;
 }
 a{
 	text-decoration:none;
@@ -22,7 +24,6 @@ a{
 .mainMenu{
 	display: flex;
 	align-items: center;
-	padding: 10px;
 }
 
 .a, .a2{
@@ -52,24 +53,6 @@ a{
 	-webkit-transition: all 0.5s linear;
 	-o-transition: all 0.5s linear;
 	transition: all 0.5s linear;
-}
-
-.sayBox{
-	background: #E2FFC7;
-	width: 280px;
-	border-radius: 20px; padding: 5px 10px;
-	font-size: 10pt;
-	position: relative;
-}
-.sayBox::before {
-	content: "";
-	border: solid transparent;
-	position: absolute;
-	right: 100%;
-	top: 15px;
-	border-right-color: #E2FFC7;
-	border-width: 9px;
-	margin-top: -1px;
 }
 
 .info i{
@@ -157,14 +140,13 @@ input[type=number] {
 .table tr:last-child{ border: none; }
 .table .size{ width: 80px; }
 
-article figure{
-	padding: 5px;
-	border: 1px solid silver;
-	margin: 5px;
+article img{
+	box-shadow: 3px 3px 1px silver, -3px -3px 1px silver;
 }
 
 article {
 	text-align: left;
+	padding: 5px;
 }
 article h1{
 	margin: 5px 0px;
