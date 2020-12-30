@@ -1,20 +1,24 @@
 @font-face {
     font-family:'PlayRegular';
-    src:url('/fonts/play-regular-webfont.ttf');
+    src: local("PlayRegular"), url('/fonts/play-regular.ttf') format("truetype");
 }
 @font-face {
     font-family:'Segoe UI Light';
-    src:url(/fonts/segoeuil.ttf);
+    src:url('/fonts/segoeuil.ttf');
 }
 @font-face {
     font-family:'Segoe UI';
-    src:url(/fonts/segoeui.ttf);
+    src:url('/fonts/segoeui.ttf');
+}
+@font-face {
+    font-family: "Hooge";
+    src: local("Hooge"), url('/fonts/hooge.ttf') format("truetype");
 }
 @font-face {
     font-family: 'Open Sans';
     src: local('Open Sans'), local('OpenSans-Regular'),
-        url(/fonts/openSans.woff) format('woff'),
-        url(/fonts/openSans.ttf) format('truetype')
+        url('/fonts/openSans.woff') format('woff'),
+        url('/fonts/openSans.ttf') format('truetype')
 }
 code{
 	font-family:'PlayRegular';
