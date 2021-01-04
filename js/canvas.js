@@ -30,3 +30,17 @@ function canvas_setEffect( effect, canvas, value )
 
 	return newCanvas;
 }
+
+function canvas_getClippedRegion( image, x, y, width, height )
+{
+	var tempCanvas = document.createElement('canvas');
+	ctx = tempCanvas.getContext('2d');
+
+	tempCanvas.width = width;
+	tempCanvas.height = height;
+
+    //                   source region         dest. region
+	ctx.drawImage(image, x, y, width, height,  0, 0, width, height);
+
+	return tempCanvas;
+}
