@@ -43,6 +43,9 @@ a{
 .languageButtons{
 	display: flex;
 	align-items: center;
+	position: absolute;
+	top: 12px;
+	right: 32px;
 }
 .languageButtons img{
 	cursor: pointer;
@@ -111,6 +114,7 @@ input[type=number] {
 	vertical-align: top;
 	margin: 20px;
 }
+
 .block .legend{
 	text-transform: uppercase;
 	margin: 0px;
@@ -133,6 +137,11 @@ input[type=number] {
 	font-size:10pt;
 	display:block;
 	margin-bottom:10px;
+}
+
+.legend{
+	text-shadow: 1px 1px 0px black;
+	color: orange !important;
 }
 
 .table{ border-collapse: collapse; }
