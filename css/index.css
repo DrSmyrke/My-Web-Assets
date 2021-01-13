@@ -76,7 +76,7 @@ hr{
 
 }
 
-input[type="text"]{
+input[type="text"], input[type="number"]{
 	background: linear-gradient( to top, #F5F5F5, #D4D4D4 );
 	box-shadow: inset 0px 0px 1px #969696, inset 0px 0px 2px #D5D5D5;
 }
@@ -148,6 +148,13 @@ input[type=number] {
 .table tr{ border-bottom: 1px solid silver; }
 .table tr:last-child{ border: none; }
 .table .size{ width: 80px; }
+
+.button:hover{
+	transform: scale( 1.1 );
+	transition: all .218s ease 0s;
+	position: relative;
+	z-index: 999;
+}
 
 article img{
 	box-shadow: 3px 3px 1px silver, -3px -3px 1px silver;
