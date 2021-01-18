@@ -4,7 +4,6 @@ body{
 	background: #E6E4E7;
 	padding-right: 5px;
 	background-image: url("/images/line.png"), url("/images/fon.png");
-	width: 1176px;
 	margin: auto;
 }
 a{
@@ -33,7 +32,10 @@ a{
 	margin: 10px;
 }
 
-.a2{ background: rgba( 168, 138, 182, 0.8); }
+.a2{
+	background: rgba( 168, 138, 182, 0.8);
+	padding: 1px 5px;
+}
 
 .a:hover{ background: rgba(114,219,32,0.2); }
 .a2:hover{ background: rgba(168,138,182,0.2); }
@@ -126,7 +128,6 @@ input[type=number] {
 	overflow: auto;
 	max-height: 520px;
 	border-radius: 5px;
-	width: 100%;
 	text-align: left;
 	padding: 5px;
 }
@@ -170,7 +171,7 @@ article h1{
 
 @media only screen and (max-width: 950px){
 	.block { width: 95%; margin: 25px auto; display: block; max-height: none; overflow: none; }
-
+	.languageButtons{ display: block; text-align: center; position: static; }
 }
 @media only screen and (max-width: 1170px){
 	.content, .logo {width: 95%;}
