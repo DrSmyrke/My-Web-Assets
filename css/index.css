@@ -114,7 +114,7 @@ input[type=number] {
 	display: inline-block;
 	padding: 10px;
 	vertical-align: top;
-	margin: 20px;
+	margin: 10px;
 }
 
 .block .legend{
@@ -174,6 +174,6 @@ article h1{
 	.languageButtons{ display: block; text-align: center; position: static; }
 }
 @media only screen and (max-width: 1170px){
-	.content, .logo {width: 95%;}
+	.content, .logo {width: 96%;}
 }
 /* @media only screen and (orientation:portrait){ .menu .a {display: block; width: 95%; margin: auto; margin-bottom: 5px;} } */
