@@ -10,6 +10,7 @@ var colorSliders_data					= {
 	"targetLayer": undefined,
 	"customPreviewObj": undefined,
 	"show": false,
+	"inputNumbers": false,
 };
 
 function colorSliders_setTargetLayer( target = 0 )
@@ -123,13 +124,19 @@ function colorSliders_generate()
 		divHUE.appendChild( inputHUEs );
 
 		var inputHUEn = document.createElement("input");
-		inputHUEn.type				= "number";
-		inputHUEn.min				= 0;
-		inputHUEn.max				= 359;
+		if( colorSliders_data.inputNumbers ){
+			inputHUEn.type				= "number";
+			inputHUEn.min				= 0;
+			inputHUEn.max				= 359;
+		}else{
+			inputHUEn.type				= "text";
+			inputHUEn.pattern			= "[0-9]{,3}";
+		}
+
 		inputHUEn.value				= 0;
 		inputHUEn.maxlength			= 3;
 		inputHUEn.className			= "sliderNumber";
-		inputHUEn.style.width		= "60px";
+		inputHUEn.style.width		= "24px";
 		inputHUEn.oninput = function( ev ){
 			if( colorSliders_data.hueSlider == undefined ) return;
 			var val					= parseInt( ev.target.value );
@@ -170,13 +177,19 @@ function colorSliders_generate()
 		divSAT.appendChild( inputSATs );
 
 		var inputSATn = document.createElement("input");
-		inputSATn.type				= "number";
-		inputSATn.min				= 0;
-		inputSATn.max				= 100;
+		if( colorSliders_data.inputNumbers ){
+			inputSATn.type				= "number";
+			inputSATn.min				= 0;
+			inputSATn.max				= 100;
+		}else{
+			inputSATn.type				= "text";
+			inputSATn.pattern			= "[0-9]{,3}";
+		}
+		
 		inputSATn.value				= 0;
 		inputSATn.maxlength			= 3;
 		inputSATn.className			= "sliderNumber";
-		inputSATn.style.width		= "60px";
+		inputSATn.style.width		= "24px";
 		inputSATn.oninput = function( ev ){
 			if( colorSliders_data.satSlider == undefined ) return;
 			var val					= parseInt( ev.target.value );
@@ -217,13 +230,19 @@ function colorSliders_generate()
 		divSAT.appendChild( inputBRIs );
 
 		var inputBRIn = document.createElement("input");
-		inputBRIn.type				= "number";
-		inputBRIn.min				= 0;
-		inputBRIn.max				= 200;
+		if( colorSliders_data.inputNumbers ){
+			inputBRIn.type				= "number";
+			inputBRIn.min				= 0;
+			inputBRIn.max				= 100;
+		}else{
+			inputBRIn.type				= "text";
+			inputBRIn.pattern			= "[0-9]{,3}";
+		}
+		
 		inputBRIn.value				= 100;
 		inputBRIn.maxlength			= 3;
 		inputBRIn.className			= "sliderNumber";
-		inputBRIn.style.width		= "60px";
+		inputBRIn.style.width		= "24px";
 		inputBRIn.oninput = function( ev ){
 			if( colorSliders_data.briSlider == undefined ) return;
 			var val					= parseInt( ev.target.value );
