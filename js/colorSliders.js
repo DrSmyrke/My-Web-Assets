@@ -1,21 +1,99 @@
 var colorSliders_data					= { 
 	"slidersBox": undefined,
-	"previewBox": undefined,
+	"hueSlider": undefined,
+	"satSlider": undefined,
+	"briSlider": undefined,
+	"hueNumber": undefined,
+	"satNumber": undefined,
+	"briNumber": undefined,
+	"hsb": {"h": 0, "s": 0, "b": 0},
+	"targetLayer": undefined,
+	"customPreviewObj": undefined,
+	"show": false,
 };
 
+function colorSliders_setTargetLayer( target = 0 )
+{
+	if( colorSliders_data.slidersBox == undefined ) return;
+
+	colorSliders_data.targetLayer = target;
+}
+
+function colorSliders_resetCustomPreview()
+{
+	if( colorSliders_data.slidersBox == undefined ) return;
+
+	colorSliders_data.customPreviewObj = undefined;
+}
+
+function colorSliders_setCustomPreview( obj )
+{
+	if( colorSliders_data.slidersBox == undefined ) return;
+	if( obj == undefined ) return;
+	if( obj.tagName == undefined ) return;
+
+	colorSliders_data.customPreviewObj = obj;
+}
 
 function colorSliders_show()
 {
 	if( colorSliders_data.slidersBox == undefined ) return;
 
 	colorSliders_data.slidersBox.style.display = "block";
+	colorSliders_data.show = true;
 }
 
 function colorSliders_hide()
 {
 	if( colorSliders_data.slidersBox == undefined ) return;
+	if( !colorSliders_data.show ) return;
 
 	colorSliders_data.slidersBox.style.display = "none";
+	colorSliders_data.show = false;
+}
+
+function colorSliders_setHSB( data = {h: 0, s: 0, b: 0} )
+{
+	if( data.h == undefined || data.s == undefined || data.b == undefined ) return;
+	if( colorSliders_data.slidersBox == undefined ) return;
+	if( colorSliders_data.hueSlider == undefined ) return;
+	if( colorSliders_data.satSlider == undefined ) return;
+	if( colorSliders_data.briSlider == undefined ) return;
+	if( colorSliders_data.hueNumber == undefined ) return;
+	if( colorSliders_data.satNumber == undefined ) return;
+	if( colorSliders_data.briNumber == undefined ) return;
+
+	data.h = parseInt( data.h );
+	data.s = parseInt( data.s );
+	data.b = parseInt( data.b );
+
+	colorSliders_data.hueSlider.value	= data.h;
+	colorSliders_data.satSlider.value	= data.s;
+	colorSliders_data.briSlider.value	= data.b;
+	colorSliders_data.hueNumber.value	= data.h;
+	colorSliders_data.satNumber.value	= data.s;
+	colorSliders_data.briNumber.value	= data.b;
+
+	colorSliders_data.hsb.h = data.h;
+	colorSliders_data.hsb.s = data.s;
+	colorSliders_data.hsb.b = data.b;
+
+	colorSliders_updatePreview();
+}
+
+function colorSliders_updatePreview()
+{
+	if( colorSliders_data.hsb == undefined ) return;
+
+	var hex = hsbToHex( colorSliders_data.hsb );
+
+	if( colorSliders_data.targetLayer != undefined ){
+		recolorLayer( colorSliders_data.targetLayer, colorSliders_data.hsb );
+	}
+
+	if( colorSliders_data.customPreviewObj != undefined ){
+		colorSliders_data.customPreviewObj.style.backgroundColor = "#" + hex;
+	}
 }
 
 
@@ -23,96 +101,156 @@ function colorSliders_hide()
 function colorSliders_generate()
 {
 	var divRoot = document.createElement("div");
-	divRoot.style.display				= "none";
+	//divRoot.style.display				= "none";
 
-		var divSlidersRoot = document.createElement("div");
-		divSlidersRoot.style.width		= "calc( 100% - 64px )";
-		divSlidersRoot.style.display	= "inline-block";
+		var divHUE = document.createElement("div");
 
-			var divHUE = document.createElement("div");
+		var inputHUEs = document.createElement("input");
+		inputHUEs.type				= "range";
+		inputHUEs.min				= 0;
+		inputHUEs.max				= 359;
+		inputHUEs.value				= 0;
+		inputHUEs.className			= "sliderHUE";
+		inputHUEs.style.width		= "calc( 100% - 70px )";
+		inputHUEs.oninput = function( ev ){
+			if( colorSliders_data.hueNumber == undefined ) return;
+			var val					= parseInt( ev.target.value );
+			colorSliders_data.hueNumber.value = val;
+			colorSliders_data.hsb.h = val;
+			colorSliders_updatePreview();
+			return true;
+		};
+		divHUE.appendChild( inputHUEs );
 
-			var inputHUEs = document.createElement("input");
-			inputHUEs.type				= "range";
-			inputHUEs.min				= 0;
-			inputHUEs.max				= 359;
-			inputHUEs.value				= 0;
-			inputHUEs.className			= "sliderHUE";
-			inputHUEs.style.width		= "calc( 100% - 70px )";
-			divHUE.appendChild( inputHUEs );
+		var inputHUEn = document.createElement("input");
+		inputHUEn.type				= "number";
+		inputHUEn.min				= 0;
+		inputHUEn.max				= 359;
+		inputHUEn.value				= 0;
+		inputHUEn.maxlength			= 3;
+		inputHUEn.className			= "sliderNumber";
+		inputHUEn.style.width		= "60px";
+		inputHUEn.oninput = function( ev ){
+			if( colorSliders_data.hueSlider == undefined ) return;
+			var val					= parseInt( ev.target.value );
+			if( val > 359 ){
+				val = 359;
+				ev.target.value = val;
+			}
+			if( val < 0 ){
+				val = 0;
+				ev.target.value = val;
+			}
+			colorSliders_data.hueSlider.value = val;
+			colorSliders_data.hsb.h = val;
+			colorSliders_updatePreview();
+			return true;
+		};
+		divHUE.appendChild( inputHUEn );
 
-			var inputHUEn = document.createElement("input");
-			inputHUEn.type				= "number";
-			inputHUEn.min				= 0;
-			inputHUEn.max				= 359;
-			inputHUEn.value				= 0;
-			inputHUEn.maxlength			= 3;
-			inputHUEn.className			= "sliderNumber";
-			inputHUEn.style.width		= "60px";
-			divHUE.appendChild( inputHUEn );
+	divRoot.appendChild( divHUE );
 
-		divSlidersRoot.appendChild( divHUE );
+		var divSAT = document.createElement("div");
 
-			var divSAT = document.createElement("div");
+		var inputSATs = document.createElement("input");
+		inputSATs.type				= "range";
+		inputSATs.min				= 0;
+		inputSATs.max				= 100;
+		inputSATs.value				= 0;
+		inputSATs.className			= "sliderSaturation";
+		inputSATs.style.width		= "calc( 100% - 70px )";
+		inputSATs.oninput = function( ev ){
+			if( colorSliders_data.satNumber == undefined ) return;
+			var val					= parseInt( ev.target.value );
+			colorSliders_data.satNumber.value = val;
+			colorSliders_data.hsb.s = val;
+			colorSliders_updatePreview();
+			return true;
+		};
+		divSAT.appendChild( inputSATs );
 
-			var inputSATs = document.createElement("input");
-			inputSATs.type				= "range";
-			inputSATs.min				= 0;
-			inputSATs.max				= 100;
-			inputSATs.value				= 0;
-			inputSATs.className			= "sliderSaturation";
-			inputSATs.style.width		= "calc( 100% - 70px )";
-			divSAT.appendChild( inputSATs );
+		var inputSATn = document.createElement("input");
+		inputSATn.type				= "number";
+		inputSATn.min				= 0;
+		inputSATn.max				= 100;
+		inputSATn.value				= 0;
+		inputSATn.maxlength			= 3;
+		inputSATn.className			= "sliderNumber";
+		inputSATn.style.width		= "60px";
+		inputSATn.oninput = function( ev ){
+			if( colorSliders_data.satSlider == undefined ) return;
+			var val					= parseInt( ev.target.value );
+			if( val > 100 ){
+				val = 100;
+				ev.target.value = val;
+			}
+			if( val < 0 ){
+				val = 0;
+				ev.target.value = val;
+			}
+			colorSliders_data.satSlider.value = val;
+			colorSliders_data.hsb.s = val;
+			colorSliders_updatePreview();
+			return true;
+		};
+		divSAT.appendChild( inputSATn );
 
-			var inputSATn = document.createElement("input");
-			inputSATn.type				= "number";
-			inputSATn.min				= 0;
-			inputSATn.max				= 100;
-			inputSATn.value				= 0;
-			inputSATn.maxlength			= 3;
-			inputSATn.className			= "sliderNumber";
-			inputSATn.style.width		= "60px";
-			divSAT.appendChild( inputSATn );
+	divRoot.appendChild( divSAT );
 
-		divSlidersRoot.appendChild( divSAT );
+		var divBRI = document.createElement("div");
 
-			var divBRI = document.createElement("div");
+		var inputBRIs = document.createElement("input");
+		inputBRIs.type				= "range";
+		inputBRIs.min				= 0;
+		inputBRIs.max				= 200;
+		inputBRIs.value				= 100;
+		inputBRIs.className			= "sliderBrightness";
+		inputBRIs.style.width		= "calc( 100% - 70px )";
+		inputBRIs.oninput = function( ev ){
+			if( colorSliders_data.briNumber == undefined ) return;
+			var val					= parseInt( ev.target.value );
+			colorSliders_data.briNumber.value = val;
+			colorSliders_data.hsb.b = val;
+			colorSliders_updatePreview();
+			return true;
+		};
+		divSAT.appendChild( inputBRIs );
 
-			var inputBRIs = document.createElement("input");
-			inputBRIs.type				= "range";
-			inputBRIs.min				= 0;
-			inputBRIs.max				= 200;
-			inputBRIs.value				= 100;
-			inputBRIs.className			= "sliderBrightness";
-			inputBRIs.style.width		= "calc( 100% - 70px )";
-			divSAT.appendChild( inputBRIs );
+		var inputBRIn = document.createElement("input");
+		inputBRIn.type				= "number";
+		inputBRIn.min				= 0;
+		inputBRIn.max				= 200;
+		inputBRIn.value				= 100;
+		inputBRIn.maxlength			= 3;
+		inputBRIn.className			= "sliderNumber";
+		inputBRIn.style.width		= "60px";
+		inputBRIn.oninput = function( ev ){
+			if( colorSliders_data.briSlider == undefined ) return;
+			var val					= parseInt( ev.target.value );
+			if( val > 200 ){
+				val = 200;
+				ev.target.value = val;
+			}
+			if( val < 0 ){
+				val = 0;
+				ev.target.value = val;
+			}
+			colorSliders_data.briSlider.value = val;
+			colorSliders_data.hsb.b = val;
+			colorSliders_updatePreview();
+			return true;
+		};
+		divSAT.appendChild( inputBRIn );
 
-			var inputBRIn = document.createElement("input");
-			inputBRIn.type				= "number";
-			inputBRIn.min				= 0;
-			inputBRIn.max				= 200;
-			inputBRIn.value				= 100;
-			inputBRIn.maxlength			= 3;
-			inputBRIn.className			= "sliderNumber";
-			inputBRIn.style.width		= "60px";
-			divSAT.appendChild( inputBRIn );
+	divRoot.appendChild( divBRI );
 
-		divSlidersRoot.appendChild( divBRI );
-    
-	divRoot.appendChild( divSlidersRoot );
-
-		var divPreview = document.createElement("div");
-		divPreview.style.width			= "64px";
-		divPreview.style.height			= "64px";
-		divPreview.style.backgroundColor = "black";
-		divPreview.style.display		= "inline-block";
-
-	divRoot.appendChild( divPreview );
-
-
-
-
-	colorSliders_data.previewBox		= divPreview;
 	colorSliders_data.slidersBox		= divRoot;
+	colorSliders_data.hueSlider			= inputHUEs;
+	colorSliders_data.satSlider			= inputSATs;
+	colorSliders_data.briSlider			= inputBRIs;
+	colorSliders_data.hueNumber			= inputHUEn;
+	colorSliders_data.satNumber			= inputSATn;
+	colorSliders_data.briNumber			= inputBRIn;
 
 	return divRoot;
 }
