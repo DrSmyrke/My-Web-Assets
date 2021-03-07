@@ -24,7 +24,9 @@ function canvas_setEffect( effect, canvas, value )
 			newCanvas.height							= canvas.height * size;
 
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
-			canvasContext.drawImage( newCanvas, 0, 0, canvas.width, canvas.height );
+			//canvasContext.clearRect( 0, 0, canvas.width, canvas.height );
+			//canvasContext.drawImage( newCanvas, 0, 0, canvas.width, canvas.height );
+			//newCanvas.remove();
 		break;
 		case "outline":
 			var myImg = canvasContext.getImageData( 0, 0, canvas.width, canvas.height );
@@ -55,6 +57,22 @@ function canvas_setEffect( effect, canvas, value )
 			}
 
 			newContext.putImageData( myImg, 0, 0 );
+		break;
+		case "brightness":
+			newContext.filter = 'brightness(' + value + '%)';
+			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
+		break;
+		case "contrast":
+			newContext.filter = 'contrast(' + value + '%)';
+			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
+		break;
+		case "saturation":
+			newContext.filter = 'saturate(' + value + '%)';
+			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
+		break;
+		case "blur":
+			newContext.filter = 'blur(' + value + 'px)';
+			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
 		default: break;
 	}
