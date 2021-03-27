@@ -1,6 +1,6 @@
 var tooltipID = "tooltipBox";
 
-function tootipInit()
+function tooltipInit()
 {
 	var obj = document.createElement( "div" );
 	obj.id = tooltipID;
