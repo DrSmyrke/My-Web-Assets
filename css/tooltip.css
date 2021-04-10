@@ -11,6 +11,8 @@
 	z-index: 10000;
 	font-size: 9pt;
 	pointer-events: none;
+	left: -100px;
+	top: -100px;
 
 	transition: opacity 1s;
 }
