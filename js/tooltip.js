@@ -18,8 +18,9 @@ function tooltipShow( text, event )
 
 	box.style.visibility = "visible";
 	if( event.clientY != undefined ){
-		box.style.top = ( event.clientY + 5 ) + "px";
-		box.style.left = ( event.clientX + 3 ) + "px";
+		var scroll = getScroll();
+		box.style.top = ( event.clientY + 5 + scroll[1] ) + "px";
+		box.style.left = ( event.clientX + 3 + scroll[0] ) + "px";
 
 		event.target.addEventListener( 'mouseout', tooltipHide );
 	}
@@ -34,4 +35,18 @@ function tooltipHide( event )
 	if( box == undefined ) return;
 
 	box.className = "hide";
+}
+
+function getScroll()
+{
+	if (window.pageYOffset != undefined) {
+		return [pageXOffset, pageYOffset];
+	} else {
+		var sx, sy, d = document,
+			r = d.documentElement,
+			b = d.body;
+		sx = r.scrollLeft || b.scrollLeft || 0;
+		sy = r.scrollTop || b.scrollTop || 0;
+		return [sx, sy];
+	}
 }
