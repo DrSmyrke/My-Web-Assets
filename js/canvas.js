@@ -74,6 +74,19 @@ function canvas_setEffect( effect, canvas, value )
 			newContext.filter = 'blur(' + value + 'px)';
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
+		case "borderShadow":
+			newContext.filter = 'drop-shadow(0px 0px 4px black)';
+			newContext.shadowBlur = 2;
+			newContext.shadowColor = "rgba(0, 0, 0)";
+			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
+		break;
+		case "mirrorHorizontal":
+			newContext.save();
+			newContext.translate( 0, 0 );
+			newContext.scale( -1, 1 );
+			newContext.drawImage( canvas, 0, 0, newCanvas.width * -1, newCanvas.height );
+			newContext.restore();
+		break;
 		default: break;
 	}
 
