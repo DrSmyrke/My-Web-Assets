@@ -43,7 +43,7 @@ function changeParam( form, viewBoxID )
 		viewBoxObj = document.getElementById( formViewBoxID );
 		if( viewBoxObj == undefined ){
 			console.log( "form.js: changeParam: viewBoxObj not found" );
-			return;
+			return false;
 		}
 	}
 
@@ -63,11 +63,15 @@ function changeParam( form, viewBoxID )
 
 	finalString = finalData.join( "&" );
 
-	formRequest.open( "POST", form.action, false );
+	formRequest.open( "POST", form.action, true );
 	formRequest.setRequestHeader( 'Content-type','application/x-www-form-urlencoded' );
 	formRequest.send( finalString );
 
-	viewBoxObj.innerHTML = formRequest.responseText;
+	formRequest.onreadystatechange = function(){
+		if( formRequest.readyState == 4 && formRequest.status == 200 ){
+			viewBoxObj.innerHTML = formRequest.responseText;
+		}
+	}	
 
 	return false;
 }
