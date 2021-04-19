@@ -1,0 +1,19 @@
+input[type="text"], input[type="number"], input[type="password"], input[type="date"], input[type="time"]{
+	background: linear-gradient( to top, #F5F5F5, #D4D4D4 );
+	box-shadow: inset 0px 0px 1px #969696, inset 0px 0px 2px #D5D5D5;
+}
+button, input[type="button"], input[type="submit"], select{
+	transition: none;
+	background: linear-gradient( to top, #D4D4D4, #F5F5F5 );
+}
+input, button, select{
+	outline: none;
+	box-shadow: 1px 1px 1px #969696, 0px 0px 1px #C1C1C1;
+	border: none;
+	padding: 3px;
+	border-radius: 3px;
+	border: 1.2px solid #A0A0A0;
+}
+button:active, input[type="button"]:active, input[type="submit"]:active {
+	box-shadow: inset 1px 1px 1px #969696, inset 0px 0px 1px #C1C1C1;
+}
