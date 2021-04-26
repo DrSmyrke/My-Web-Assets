@@ -1,9 +1,9 @@
-function setCookie( cname, cvalue )
+function setCookie( cname, cvalue, path = "/" )
 {
 	var d = new Date();
 	d.setTime(d.getTime() + (365*24*60*60*1000));
 	var expires = "expires="+d.toUTCString();
-	document.cookie = cname + "=" + cvalue + "; " + expires;
+	document.cookie = cname + "=" + cvalue + "; path=" + path + "; " + expires;
 }
 
 function getCookie( name )
