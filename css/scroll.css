@@ -11,6 +11,7 @@ html, body, .scrollContent{
 }
 body::-webkit-scrollbar, .scrollContent::-webkit-scrollbar{
     width: var(--scrollbar-width-val);
+    height: var(--scrollbar-width-val);
 }
 body::-webkit-scrollbar-track, .scrollContent::-webkit-scrollbar-track{
     background-color: var(--scrollbar-track-color);
