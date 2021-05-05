@@ -64,7 +64,7 @@ function changeParam( form, viewBoxID )
 
 	finalString = finalData.join( "&" );
 
-	formRequest.open( "POST", form.action, true );
+	formRequest.open( form.method, form.action, true );
 	formRequest.setRequestHeader( 'Content-type','application/x-www-form-urlencoded' );
 	formRequest.send( finalString );
 
