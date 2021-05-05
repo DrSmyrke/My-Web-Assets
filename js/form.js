@@ -54,6 +54,7 @@ function changeParam( form, viewBoxID )
 
 	for( i = 0; i < arrayInput.length; i++ ){
 		if( arrayInput[i].name == "" ) continue;
+		if( arrayInput[i].type == "radio" && !arrayInput[i].checked ) continue;
 		if( arrayInput[i].value != "" ) finalData.push( arrayInput[i].name + "=" + arrayInput[i].value );
 	}
 	for( i = 0; i < arraySelect.length; i++ ){
