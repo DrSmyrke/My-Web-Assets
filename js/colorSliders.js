@@ -99,9 +99,13 @@ function colorSliders_updatePreview()
 
 
 
-function colorSliders_generate()
+function colorSliders_generate( object = undefiend )
 {
 	var divRoot = document.createElement("div");
+	if( object != undefined ){
+		divRoot.remove();
+		divRoot = object;
+	}
 	//divRoot.style.display				= "none";
 
 		var divHUE = document.createElement("div");
@@ -130,7 +134,7 @@ function colorSliders_generate()
 			inputHUEn.max				= 359;
 		}else{
 			inputHUEn.type				= "text";
-			inputHUEn.pattern			= "[0-9]{,3}";
+			//inputHUEn.pattern			= "[0-9]{,3}";
 		}
 
 		inputHUEn.value				= 0;
@@ -183,7 +187,7 @@ function colorSliders_generate()
 			inputSATn.max				= 100;
 		}else{
 			inputSATn.type				= "text";
-			inputSATn.pattern			= "[0-9]{,3}";
+			//inputSATn.pattern			= "[0-9]{,3}";
 		}
 		
 		inputSATn.value				= 0;
@@ -236,7 +240,7 @@ function colorSliders_generate()
 			inputBRIn.max				= 100;
 		}else{
 			inputBRIn.type				= "text";
-			inputBRIn.pattern			= "[0-9]{,3}";
+			//inputBRIn.pattern			= "[0-9]{,3}";
 		}
 		
 		inputBRIn.value				= 100;
