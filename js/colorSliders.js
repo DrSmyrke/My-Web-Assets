@@ -9,6 +9,8 @@ var colorSliders_data					= {
 	"hsb": {"h": 0, "s": 0, "b": 0},
 	"targetLayer": undefined,
 	"customPreviewObj": undefined,
+	"customCallback": undefined,
+	"customCallbackTarget": undefined,
 	"show": false,
 	"inputNumbers": false,
 };
@@ -25,6 +27,22 @@ function colorSliders_resetCustomPreview()
 	if( colorSliders_data.slidersBox == undefined ) return;
 
 	colorSliders_data.customPreviewObj = undefined;
+}
+
+function colorSliders_setCustomCallback( func, target )
+{
+	if( colorSliders_data.slidersBox == undefined ) return;
+
+	colorSliders_data.customCallback = func;
+	colorSliders_data.customCallbackTarget = target;
+}
+
+function colorSliders_resetCustomCallback()
+{
+	if( colorSliders_data.slidersBox == undefined ) return;
+
+	colorSliders_data.customCallback = undefined;
+	colorSliders_data.customCallbackTarget = undefined;
 }
 
 function colorSliders_setCustomPreview( obj )
@@ -95,6 +113,10 @@ function colorSliders_updatePreview()
 	if( colorSliders_data.customPreviewObj != undefined ){
 		colorSliders_data.customPreviewObj.style.backgroundColor = "#" + hex;
 	}
+	
+	if( colorSliders_data.customCallback != undefined ){
+		colorSliders_data.customCallback();
+	}
 }
 
 
@@ -109,6 +131,7 @@ function colorSliders_generate( object = undefiend )
 	//divRoot.style.display				= "none";
 
 		var divHUE = document.createElement("div");
+		divHUE.style.display		= "flex";
 
 		var inputHUEs = document.createElement("input");
 		inputHUEs.type				= "range";
@@ -162,6 +185,7 @@ function colorSliders_generate( object = undefiend )
 	divRoot.appendChild( divHUE );
 
 		var divSAT = document.createElement("div");
+		divSAT.style.display		= "flex";
 
 		var inputSATs = document.createElement("input");
 		inputSATs.type				= "range";
@@ -215,6 +239,7 @@ function colorSliders_generate( object = undefiend )
 	divRoot.appendChild( divSAT );
 
 		var divBRI = document.createElement("div");
+		divBRI.style.display		= "flex";
 
 		var inputBRIs = document.createElement("input");
 		inputBRIs.type				= "range";
@@ -231,7 +256,7 @@ function colorSliders_generate( object = undefiend )
 			colorSliders_updatePreview();
 			return true;
 		};
-		divSAT.appendChild( inputBRIs );
+		divBRI.appendChild( inputBRIs );
 
 		var inputBRIn = document.createElement("input");
 		if( colorSliders_data.inputNumbers ){
@@ -263,7 +288,7 @@ function colorSliders_generate( object = undefiend )
 			colorSliders_updatePreview();
 			return true;
 		};
-		divSAT.appendChild( inputBRIn );
+		divBRI.appendChild( inputBRIn );
 
 	divRoot.appendChild( divBRI );
 
