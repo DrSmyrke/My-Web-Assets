@@ -1,0 +1,25 @@
+.bottomСookieBlock td{
+	padding: 10px;
+}
+.bottomСookieBlock{
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	background-color: var( --notice-background );
+	font-size: 14pt;
+	z-index: var( --z-index-cookieBox );
+	width: calc(100% - 10px);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	padding: 5px;
+	color: white;
+}
+.cookieBlockAccept{
+	padding: 15px;
+	border: 1px solid orange;
+	color: orange;
+	font-weight: bold;
+	cursor: pointer;
+}
