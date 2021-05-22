@@ -97,12 +97,7 @@ hr{
 	background: rgba( 100, 100, 100, 0.25 );
 }
 
-.button:hover{
-	transform: scale( 1.1 );
-	transition: all .218s ease 0s;
-	position: relative;
-	z-index: 999;
-}
+
 
 article img{
 	box-shadow: 3px 3px 1px silver, -3px -3px 1px silver;
