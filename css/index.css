@@ -67,6 +67,7 @@ a{
 }
 
 .hidden{ display: none; }
+.unvisible{ visibility: hidden; }
 
 hr{
 	border: 0px dashed;
