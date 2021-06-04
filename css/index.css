@@ -67,6 +67,7 @@ a{
 }
 
 .hidden{ display: none; }
+.unvisible{ visibility: hidden; }
 
 hr{
 	border: 0px dashed;
@@ -79,28 +80,6 @@ hr{
 }
 
 .block table{ width: 100%; }
-.block{
-	width: 43%;
-	display: inline-block;
-	padding: 10px;
-	vertical-align: top;
-	margin: 10px;
-}
-
-.block .legend{
-	text-transform: uppercase;
-	margin: 0px;
-	color: #7D7C81;
-	text-align: left;
-}
-.block .content{
-	background-color: rgba(100,100,100,0.05);
-	overflow: auto;
-	max-height: 520px;
-	border-radius: 5px;
-	text-align: left;
-	padding: 5px;
-}
 
 .time{
 	font-style:italic;
@@ -108,11 +87,6 @@ hr{
 	font-size:10pt;
 	display:block;
 	margin-bottom:10px;
-}
-
-.legend{
-	text-shadow: 1px 1px 0px black;
-	color: orange !important;
 }
 
 .table{ border-collapse: collapse; }
@@ -123,12 +97,7 @@ hr{
 	background: rgba( 100, 100, 100, 0.25 );
 }
 
-.button:hover{
-	transform: scale( 1.1 );
-	transition: all .218s ease 0s;
-	position: relative;
-	z-index: 999;
-}
+
 
 article img{
 	box-shadow: 3px 3px 1px silver, -3px -3px 1px silver;
