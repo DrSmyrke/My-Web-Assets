@@ -1,19 +1,28 @@
-.messageBox{
+#messageBox{
+	border: 2px dashed rgb(36, 173, 84);
+	background: rgba( 112, 216, 148, 0.85 );
+	color: rgb(0, 109, 0);
 	position: fixed;
-	top: 10px;
-	left: 10px;
-	padding: 5px;
-	font-weight: bold;
+	left: -1500px;
+	top: 130px;
+	z-index: 1000;
+	padding: 5px 15px;
 }
 
-.messageBox.success{
-	border: 2px dashed rgb( 112, 216, 148 );
-	background: rgba( 112, 216, 148, 0.75 );
-	color: green;
-}
-
-.messageBox.error{
+#messageBox.error{
 	border: 2px dashed rgb( 234, 146, 146 );
 	background: rgba( 234, 146, 146, 0.75 );
 	color: red;
+}
+
+#messageBox.warning{
+	border: 2px dashed rgb(221, 234, 146);
+	background: rgba(233, 234, 146, 0.75);
+	color: rgb(179, 255, 0);
+}
+
+#messageBox.info{
+	border: 2px dashed rgb(146, 206, 234);
+	background: rgba(146, 214, 234, 0.75);
+	color: rgb(0, 102, 255);
 }
