@@ -1,57 +1,58 @@
-var messageBoxID;
-
 function messages_init()
 {
+	if( app == undefined ){
+		console.warn( "app is undefined" );
+		return;
+	}
+
+	app.message = false;
+
 	var div = document.createElement( "div" );
 
 	messageBoxID	= "messageBox";
 	div.id			= messageBoxID;
-	div.className	= "messageBox animated";
+	div.className	= "animated";
 	div.lang		= div.className;
 
 	document.body.appendChild( div );
-
-	message_hide();
 }
 
-function message( text, success = true, timeout = 3000 )
+function message( message = "", type = "" )
 {
-	var box = document.getElementById( messageBoxID );
+	var obj = document.getElementById( "messageBox" );
 
-	if( box == undefined ){
-		console.log( "message : box undefined" );
+	if( obj == undefined ) return;
+	if( app.message ){
+		//setTimeout( "message( \'" + message + "\' );", 5000 );
 		return;
 	}
 
-	successClass	= ( success ) ? ' success' : ' error';
-	box.innerHTML	= text;
-	box.className	= box.lang + successClass + " animate__bounceInLeft";
+	obj.classList.remove( "error" );
+	obj.classList.remove( "warning" );
+	obj.classList.remove( "info" );
+	obj.classList.remove( "hidden" );
 
-	setTimeout( "message_hide()", timeout );
-}
-
-function message_hide()
-{
-	var box = document.getElementById( messageBoxID );
-
-	if( box == undefined ){
-		console.log( "message : box undefined" );
-		return;
+	switch( type ){
+		case "info": obj.classList.add( "info" ); break;
+		case "error": obj.classList.add( "error" ); break;
+		case "warn": obj.classList.add( "warning" ); break;
 	}
 
-	box.className	= box.lang + " animate__bounceOutLeft";
+	obj.innerHTML = message;
+	obj.classList.add( "animate__bounceInLeft" );
+	obj.style.left = "15px";
 
-	setTimeout( "message_clear()", 1000 );
-}
+	app.message = true;
 
-function message_clear()
-{
-	var box = document.getElementById( messageBoxID );
+	setTimeout( function(){
+		obj.classList.remove( "animate__bounceInLeft" );
+		obj.classList.add( "animate__bounceOutLeft" );
+	}, 3000 );
 
-	if( box == undefined ){
-		console.log( "message : box undefined" );
-		return;
-	}
-
-	box.innerHTML	= "";
+	setTimeout( function(){
+		obj.classList.add( "hidden" );
+		obj.classList.remove( "animate__bounceOutLeft" );
+		obj.style.left = "-1500px";
+		app.message = false;
+	}, 4000 );
 }
