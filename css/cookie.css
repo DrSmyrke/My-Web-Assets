@@ -23,3 +23,8 @@
 	font-weight: bold;
 	cursor: pointer;
 }
+
+
+@media only screen and (max-width: 500px){
+	.bottomСookieBlock{ font-size: 12pt; }
+}
