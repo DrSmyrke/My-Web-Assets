@@ -1,5 +1,9 @@
 var request					= makeHttpObject();
 
+var app						= {
+	"message": false,
+};
+
 function makeHttpObject()
 {
 	try {return new XMLHttpRequest();}
