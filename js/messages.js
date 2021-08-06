@@ -1,7 +1,7 @@
 function messages_init()
 {
 	if( typeof app == "undefined" ){
-		console.warn( "app is undefined" );
+		console.error( "app is undefined" );
 		return;
 	}
 
