@@ -6,8 +6,6 @@
 input[type=range]{
 	-webkit-appearance: none;
 	height: 15px;
-	border: var(--slider-border);
-	vertical-align: sub;
 	width: calc( 100% - 115px );
 	padding: 0px;
 }
@@ -46,6 +44,21 @@ input[type=range]::-webkit-slider-thumb{
 }
 
 
+.sliderBox{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.sliderBox .contentBox{
+	width: calc( 100% - 64px );
+}
+
+.sliderBox .previewBox{
+	width: 48px;
+	height: 48px;
+	background-color: rgba( 100, 100, 100 );
+}
 
 
 .sliderHUE::-moz-range-track{
