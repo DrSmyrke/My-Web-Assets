@@ -8,6 +8,7 @@ var colorSliders_data					= {
 	"briNumber": undefined,
 	"hsb": {"h": 0, "s": 0, "b": 0},
 	"targetLayer": undefined,
+	"previewObj": undefined,
 	"customPreviewObj": undefined,
 	"customCallback": undefined,
 	"customCallbackTarget": undefined,
@@ -71,7 +72,7 @@ function colorSliders_hide()
 	colorSliders_data.show = false;
 }
 
-function colorSliders_setHSB( data = {h: 0, s: 0, b: 0} )
+function colorSliders_setHSB( data = {h: 0, s: 0, b: 0}, update = true )
 {
 	if( data.h == undefined || data.s == undefined || data.b == undefined ) return;
 	if( colorSliders_data.slidersBox == undefined ) return;
@@ -97,7 +98,7 @@ function colorSliders_setHSB( data = {h: 0, s: 0, b: 0} )
 	colorSliders_data.hsb.s = data.s;
 	colorSliders_data.hsb.b = data.b;
 
-	colorSliders_updatePreview();
+	if( update) colorSliders_updatePreview();
 }
 
 function colorSliders_updatePreview()
@@ -108,6 +109,10 @@ function colorSliders_updatePreview()
 
 	if( colorSliders_data.targetLayer != undefined ){
 		recolorLayer( colorSliders_data.targetLayer, colorSliders_data.hsb );
+	}
+
+	if( colorSliders_data.previewObj != undefined ){
+		colorSliders_data.previewObj.style.backgroundColor = "#" + hex;
 	}
 
 	if( colorSliders_data.customPreviewObj != undefined ){
@@ -121,13 +126,27 @@ function colorSliders_updatePreview()
 
 
 
-function colorSliders_generate( object = undefiend )
+function colorSliders_generate( object = undefiend, preview = false )
 {
 	var divRoot = document.createElement("div");
 	if( object != undefined ){
 		divRoot.remove();
 		divRoot = object;
 	}
+
+	divRoot.className = "sliderBox";
+
+	var divContent = document.createElement("div");
+	divContent.className = "contentBox";
+	divRoot.appendChild( divContent );
+
+	if( preview ){
+		var divPreview = document.createElement("div");
+		divPreview.className = "previewBox";
+		divRoot.appendChild( divPreview );
+		colorSliders_data.previewObj = divPreview;
+	}
+
 	//divRoot.style.display				= "none";
 
 		var divHUE = document.createElement("div");
@@ -182,7 +201,7 @@ function colorSliders_generate( object = undefiend )
 		};
 		divHUE.appendChild( inputHUEn );
 
-	divRoot.appendChild( divHUE );
+	divContent.appendChild( divHUE );
 
 		var divSAT = document.createElement("div");
 		divSAT.style.display		= "flex";
@@ -236,7 +255,7 @@ function colorSliders_generate( object = undefiend )
 		};
 		divSAT.appendChild( inputSATn );
 
-	divRoot.appendChild( divSAT );
+	divContent.appendChild( divSAT );
 
 		var divBRI = document.createElement("div");
 		divBRI.style.display		= "flex";
@@ -290,7 +309,7 @@ function colorSliders_generate( object = undefiend )
 		};
 		divBRI.appendChild( inputBRIn );
 
-	divRoot.appendChild( divBRI );
+	divContent.appendChild( divBRI );
 
 	colorSliders_data.slidersBox		= divRoot;
 	colorSliders_data.hueSlider			= inputHUEs;
