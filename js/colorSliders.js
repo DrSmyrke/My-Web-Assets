@@ -6,7 +6,7 @@ var colorSliders_data					= {
 	"hueNumber": undefined,
 	"satNumber": undefined,
 	"briNumber": undefined,
-	"hsb": {"h": 0, "s": 0, "b": 0},
+	"hsb": {"h": 0, "s": 0, "b": 100},
 	"targetLayer": undefined,
 	"previewObj": undefined,
 	"customPreviewObj": undefined,
@@ -18,9 +18,12 @@ var colorSliders_data					= {
 
 function colorSliders_setTargetLayer( target = 0 )
 {
-	if( colorSliders_data.slidersBox == undefined ) return;
+	colorSliders_data.targetLayer = Number( target );
+}
 
-	colorSliders_data.targetLayer = target;
+function colorSliders_unsetTargetLayer()
+{
+	colorSliders_data.targetLayer = undefined;
 }
 
 function colorSliders_resetCustomPreview()
