@@ -38,19 +38,21 @@ function onUpdateParam( input )
 
 function changeParam( form, viewBoxID )
 {
+	var verbose = true;
 	var viewBoxObj = document.getElementById( viewBoxID );
 	if( viewBoxObj == undefined ){
 		viewBoxObj = document.getElementById( formViewBoxID );
 		if( viewBoxObj == undefined ){
-			console.log( "form.js: changeParam: viewBoxObj not found" );
-			return false;
+			console.warn( "form.js: changeParam: viewBoxObj not found" );
+			verbose = false;
 		}
 	}
 
-	var arrayInput = form.getElementsByTagName("INPUT");
-	var arraySelect = form.getElementsByTagName("SELECT");
-	var finalData = Array();
-	var finalString = "";
+	var arrayInput			= form.getElementsByTagName("INPUT");
+	var arraySelect			= form.getElementsByTagName("SELECT");
+	var arrayTextarea		= form.getElementsByTagName("TEXTAREA");
+	var finalData			= Array();
+	var finalString			= "";
 
 	for( i = 0; i < arrayInput.length; i++ ){
 		if( arrayInput[i].name == "" ) continue;
@@ -61,6 +63,10 @@ function changeParam( form, viewBoxID )
 		if( arraySelect[i].name == "" ) continue;
 		if( arraySelect[i].value != "" ) finalData.push( arraySelect[i].name + "=" + arraySelect[i].value );
 	}
+	for( i = 0; i < arrayTextarea.length; i++ ){
+		if( arrayTextarea[i].name == "" ) continue;
+		if( arrayTextarea[i].value != "" ) finalData.push( arrayTextarea[i].name + "=" + arrayTextarea[i].value );
+	}
 
 	finalString = finalData.join( "&" );
 
@@ -70,7 +76,7 @@ function changeParam( form, viewBoxID )
 
 	formRequest.onreadystatechange = function(){
 		if( formRequest.readyState == 4 && formRequest.status == 200 ){
-			viewBoxObj.innerHTML = formRequest.responseText;
+			if( verbose ) viewBoxObj.innerHTML = formRequest.responseText;
 		}
 	}	
 
