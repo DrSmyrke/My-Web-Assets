@@ -102,3 +102,22 @@ function uploadForm( form, viewBoxID )
 
 	return false;
 }
+
+//<input type="tel" name="data[phone]" value="+7(___)___-__-__" onInput="phoneMask( this );">
+function phoneMask( input )
+{
+	let patStringArr = "+7(___)___-__-__".split('');
+	let arrPush = [3, 4, 5, 7, 8, 9, 11, 12, 14, 15]
+	let val = input.value;
+	let arr = val.replace(/\D+/g, "").split('').splice(1);
+	let n;
+	let ni;
+	arr.forEach((s, i) => {
+		n = arrPush[i];
+		patStringArr[n] = s
+		ni = i
+	});
+	arr.length < 10 ? input.style.color = 'red' : input.style.color = 'green';
+	input.value = patStringArr.join('');
+	n ? v.setSelectionRange(n + 1, n + 1) : input.setSelectionRange(17, 17)
+}
