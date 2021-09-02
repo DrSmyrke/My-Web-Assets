@@ -14,6 +14,7 @@ var colorSliders_data					= {
 	"customCallbackTarget": undefined,
 	"show": false,
 	"inputNumbers": false,
+	"hexInput": undefined,
 };
 
 function colorSliders_setTargetLayer( target = 0 )
@@ -125,6 +126,10 @@ function colorSliders_updatePreview()
 	if( colorSliders_data.customCallback != undefined ){
 		colorSliders_data.customCallback();
 	}
+
+	if( colorSliders_data.hexInput != undefined ){
+		colorSliders_data.hexInput.value = "#" + hex;
+	}
 }
 
 
@@ -143,12 +148,28 @@ function colorSliders_generate( object = undefiend, preview = false )
 	divContent.className = "contentBox";
 	divRoot.appendChild( divContent );
 
+	var divPreviewBox = document.createElement("div");
 	if( preview ){
 		var divPreview = document.createElement("div");
 		divPreview.className = "previewBox";
-		divRoot.appendChild( divPreview );
+		divPreviewBox.appendChild( divPreview );
 		colorSliders_data.previewObj = divPreview;
 	}
+
+	var hexInput			= document.createElement( "input" );
+	hexInput.type			= "text";
+	hexInput.maxLength		= 7;
+	hexInput.className		= "sliderNumber";
+	hexInput.value			= "#" + hsbToHex( colorSliders_data.hsb );
+	hexInput.style.width	= "55px";
+	hexInput.oninput = function( ev ){
+		colorSliders_setHSB( hexToHsb( this.value ) );
+	};
+	divPreviewBox.appendChild( hexInput );
+	colorSliders_data.hexInput = hexInput;
+
+
+	divRoot.appendChild( divPreviewBox );
 
 	//divRoot.style.display				= "none";
 
