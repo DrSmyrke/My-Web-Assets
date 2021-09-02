@@ -10,10 +10,6 @@ input[type=range]{
 	padding: 0px;
 }
 
-input[type=number]{
-	padding: 0px;
-}
-
 .sliderNumber{
 	width: 48px;
 	background: none;
