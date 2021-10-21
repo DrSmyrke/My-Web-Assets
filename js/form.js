@@ -95,10 +95,10 @@ function uploadForm( form, viewBoxID )
 	}
 
 	var formData = new FormData(form);
-	request.open( "POST", form.action, false );
-	request.send( formData );
+	formRequest.open( "POST", form.action, false );
+	formRequest.send( formData );
 
-	viewBoxObj.innerHTML = request.responseText;
+	viewBoxObj.innerHTML = formRequest.responseText;
 
 	return false;
 }
