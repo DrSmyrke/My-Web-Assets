@@ -38,19 +38,21 @@ function onUpdateParam( input )
 
 function changeParam( form, viewBoxID )
 {
+	var verbose = true;
 	var viewBoxObj = document.getElementById( viewBoxID );
 	if( viewBoxObj == undefined ){
 		viewBoxObj = document.getElementById( formViewBoxID );
 		if( viewBoxObj == undefined ){
-			console.log( "form.js: changeParam: viewBoxObj not found" );
-			return false;
+			console.warn( "form.js: changeParam: viewBoxObj not found" );
+			verbose = false;
 		}
 	}
 
-	var arrayInput = form.getElementsByTagName("INPUT");
-	var arraySelect = form.getElementsByTagName("SELECT");
-	var finalData = Array();
-	var finalString = "";
+	var arrayInput			= form.getElementsByTagName("INPUT");
+	var arraySelect			= form.getElementsByTagName("SELECT");
+	var arrayTextarea		= form.getElementsByTagName("TEXTAREA");
+	var finalData			= Array();
+	var finalString			= "";
 
 	for( i = 0; i < arrayInput.length; i++ ){
 		if( arrayInput[i].name == "" ) continue;
@@ -61,6 +63,10 @@ function changeParam( form, viewBoxID )
 		if( arraySelect[i].name == "" ) continue;
 		if( arraySelect[i].value != "" ) finalData.push( arraySelect[i].name + "=" + arraySelect[i].value );
 	}
+	for( i = 0; i < arrayTextarea.length; i++ ){
+		if( arrayTextarea[i].name == "" ) continue;
+		if( arrayTextarea[i].value != "" ) finalData.push( arrayTextarea[i].name + "=" + arrayTextarea[i].value );
+	}
 
 	finalString = finalData.join( "&" );
 
@@ -70,7 +76,7 @@ function changeParam( form, viewBoxID )
 
 	formRequest.onreadystatechange = function(){
 		if( formRequest.readyState == 4 && formRequest.status == 200 ){
-			viewBoxObj.innerHTML = formRequest.responseText;
+			if( verbose ) viewBoxObj.innerHTML = formRequest.responseText;
 		}
 	}	
 
@@ -89,10 +95,29 @@ function uploadForm( form, viewBoxID )
 	}
 
 	var formData = new FormData(form);
-	request.open( "POST", form.action, false );
-	request.send( formData );
+	formRequest.open( "POST", form.action, false );
+	formRequest.send( formData );
 
-	viewBoxObj.innerHTML = request.responseText;
+	viewBoxObj.innerHTML = formRequest.responseText;
 
 	return false;
+}
+
+//<input type="tel" name="data[phone]" value="+7(___)___-__-__" onInput="phoneMask( this );">
+function phoneMask( input )
+{
+	let patStringArr = "+7(___)___-__-__".split('');
+	let arrPush = [3, 4, 5, 7, 8, 9, 11, 12, 14, 15]
+	let val = input.value;
+	let arr = val.replace(/\D+/g, "").split('').splice(1);
+	let n;
+	let ni;
+	arr.forEach((s, i) => {
+		n = arrPush[i];
+		patStringArr[n] = s
+		ni = i
+	});
+	arr.length < 10 ? input.style.color = 'red' : input.style.color = 'green';
+	input.value = patStringArr.join('');
+	n ? v.setSelectionRange(n + 1, n + 1) : input.setSelectionRange(17, 17)
 }

@@ -150,3 +150,27 @@ function hsbToHex( hsb )
 {
 	return rgbToHex( hsbToRgb( hsb ) );
 }
+
+function chis( value = 0 )
+{
+	var string = "";
+
+	value = Number( value ).toFixed( 2 );
+
+	string = value;
+
+	var list = string.split( "." );
+	var str = list[0];
+	var ch = 0;
+	string = "";
+
+	for( var i = str.length - 1; i >= 0; i-- ){
+		string = str[ i ] + string;
+		if( i > 0 && ch++ >= 2 ){
+			string = " " + string;
+			ch = 0;
+		}
+	}
+
+	return string;
+}
