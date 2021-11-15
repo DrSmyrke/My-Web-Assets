@@ -1,63 +1,206 @@
-function messages_init()
-{
-	if( typeof app == "undefined" ){
-		console.error( "app is undefined" );
-		return;
+class Message{
+	timerID;
+	messBoxes;
+	timeout;
+	yOffset;
+	maxBoxes;
+
+	constructor()
+	{
+		this.messBoxes	= Array();
+		this.timeout	= 4;
+		this.yOffset	= 0;
+		this.maxBoxes	= 100;
+
+		this.timerID = setInterval( function( array ){
+			var deleteF = false;
+			var deleteYOffset = 0;
+
+			for( num in array ){
+				var element = array[ num ];
+
+				var obj = document.getElementById( "messBox" + element.id );
+				if( obj == undefined ){
+					console.error( "obj undefined", element, num );
+					continue;
+				}
+
+				if( element.timeout > 0 ){
+					element.timeout--;
+					if( element.timeout == 1 ){
+						obj.classList.remove( "animate__bounceInLeft" );
+						obj.classList.add( "animate__bounceOutLeft" );
+					}
+				}else{
+					deleteYOffset = obj.clientHeight + obj.clientTop;
+					obj.remove();	
+					array.splice( num, 1 );
+					deleteF = true;
+				}
+			}
+
+			if( deleteF ){
+				for( num in array ){
+					var element = array[ num ];
+
+					var obj = document.getElementById( "messBox" + element.id );
+					if( obj == undefined ){
+						console.error( "obj undefined", element, num );
+						continue;
+					}
+
+					if( element.timeout > 1 ){
+						var tmp = obj.style.top.split( "px" );
+						var value = Number( tmp[0] ).toFixed() - Number( deleteYOffset ).toFixed();
+						obj.style.top = value + "px";
+					}
+				}
+			}
+		}, 1000, this.messBoxes );
 	}
 
-	if( app.message == undefined ){
-		console.warn( "app.message is undefined" );
-		return;
+	setYOffset( value = 0 )
+	{
+		this.yOffset = Number( value ).toFixed();
+		if( this.yOffset < 0 ) this.yOffset = 0;
 	}
 
-	app.message = false;
+	getNewYOffset()
+	{
+		var yOffset		= this.yOffset;
 
-	var div = document.createElement( "div" );
+		if( this.messBoxes.length > 0 ){
+			for( num in this.messBoxes ){
+				var element = this.messBoxes[ num ];
 
-	messageBoxID	= "messageBox";
-	div.id			= messageBoxID;
-	div.className	= "animated";
-	div.lang		= div.className;
+				var obj = document.getElementById( "messBox" + element.id );
+				if( obj == undefined ){
+					console.error( "obj undefined", element, num );
+					continue;
+				}
 
-	document.body.appendChild( div );
-}
+				yOffset = Number( obj.offsetTop ) + Number( obj.clientTop ) + Number( obj.clientHeight ) + 15;
+			}
+		}
 
-function message( message = "", type = "" )
-{
-	var obj = document.getElementById( "messageBox" );
-
-	if( obj == undefined ) return;
-	if( app.message ){
-		//setTimeout( "message( \'" + message + "\' );", 5000 );
-		return;
+		return yOffset;
 	}
 
-	obj.classList.remove( "error" );
-	obj.classList.remove( "warning" );
-	obj.classList.remove( "info" );
-	obj.classList.remove( "hidden" );
+	getAvailableIndex()
+	{
+		var index = 0;
+		var globalfind = false;
 
-	switch( type ){
-		case "info": obj.classList.add( "info" ); break;
-		case "error": obj.classList.add( "error" ); break;
-		case "warn": obj.classList.add( "warning" ); break;
+		if( this.messBoxes.length == 0 ) return index;
+
+		for( var index = 0; index < this.maxBoxes; index++ ){
+			var find = false;
+
+			for( num in this.messBoxes ){
+				if( index == this.messBoxes[ num ].id ){
+					find = true;
+					break;
+				}
+			}
+
+			if( !find ){
+				globalfind = true;
+				break;
+			}
+		}
+	
+		if( !globalfind && this.messBoxes.length > 0 ) index = -1;
+
+		return index;
 	}
 
-	obj.innerHTML = message;
-	obj.classList.add( "animate__bounceInLeft" );
-	obj.style.left = "15px";
+	setTimeout( value = 0 )
+	{
+		this.timeout = Number( value ).toFixed();
+		if( this.timeout == 0 ) this.timeout = 4;
+	}
 
-	app.message = true;
+	info( message = "" )
+	{
+		if( message == "" ) return;
 
-	setTimeout( function(){
-		obj.classList.remove( "animate__bounceInLeft" );
-		obj.classList.add( "animate__bounceOutLeft" );
-	}, 3000 );
+		var index		= this.getAvailableIndex();
+		if( index == -1 ) return;
 
-	setTimeout( function(){
-		obj.classList.add( "hidden" );
-		obj.classList.remove( "animate__bounceOutLeft" );
-		obj.style.left = "-1500px";
-		app.message = false;
-	}, 4000 );
+		var div = document.createElement( "div" );
+
+		div.className	= "animated animate__bounceInLeft messageBox info";
+		div.lang		= div.className;
+		div.innerHTML	= message;
+		div.id			= "messBox" + index;
+		div.style.left	= "15px";
+		div.style.top	= this.getNewYOffset() + "px";
+
+		this.messBoxes.push( { "id": index, "timeout": this.timeout } );
+
+		document.body.appendChild( div );
+	}
+
+	warn( message = "" )
+	{
+		if( message == "" ) return;
+
+		var index		= this.getAvailableIndex();
+		if( index == -1 ) return;
+
+		var div = document.createElement( "div" );
+
+		div.className	= "animated animate__bounceInLeft messageBox warning";
+		div.lang		= div.className;
+		div.innerHTML	= message;
+		div.id			= "messBox" + index;
+		div.style.left	= "15px";
+		div.style.top	= this.getNewYOffset() + "px";
+
+		this.messBoxes.push( { "id": index, "timeout": this.timeout } );
+
+		document.body.appendChild( div );
+	}
+
+	error( message = "" )
+	{
+		if( message == "" ) return;
+
+		var index		= this.getAvailableIndex();
+		if( index == -1 ) return;
+
+		var div = document.createElement( "div" );
+
+		div.className	= "animated animate__bounceInLeft messageBox error";
+		div.lang		= div.className;
+		div.innerHTML	= message;
+		div.id			= "messBox" + index;
+		div.style.left	= "15px";
+		div.style.top	= this.getNewYOffset() + "px";
+
+		this.messBoxes.push( { "id": index, "timeout": this.timeout } );
+
+		document.body.appendChild( div );
+	}
+
+	success( message = "" )
+	{
+		if( message == "" ) return;
+
+		var index		= this.getAvailableIndex();
+		if( index == -1 ) return;
+
+		var div = document.createElement( "div" );
+
+		div.className	= "animated animate__bounceInLeft messageBox";
+		div.lang		= div.className;
+		div.innerHTML	= message;
+		div.id			= "messBox" + index;
+		div.style.left	= "15px";
+		div.style.top	= this.getNewYOffset() + "px";
+
+		this.messBoxes.push( { "id": index, "timeout": this.timeout } );
+
+		document.body.appendChild( div );
+	}
 }
