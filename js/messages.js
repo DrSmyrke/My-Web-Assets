@@ -8,11 +8,11 @@ class Message{
 	constructor()
 	{
 		this.messBoxes	= Array();
-		this.timeout	= 4;
+		this.timeout	= 50;
 		this.yOffset	= 0;
 		this.maxBoxes	= 100;
 
-		this.timerID = setInterval( function( array ){
+		this.timerID = setInterval( function( array, yOffset ){
 			var deleteF = false;
 			var deleteYOffset = 0;
 
@@ -27,7 +27,7 @@ class Message{
 
 				if( element.timeout > 0 ){
 					element.timeout--;
-					if( element.timeout == 1 ){
+					if( element.timeout == 10 ){
 						obj.classList.remove( "animate__bounceInLeft" );
 						obj.classList.add( "animate__bounceOutLeft" );
 					}
@@ -40,6 +40,8 @@ class Message{
 			}
 
 			if( deleteF ){
+				var y = Number( yOffset );
+
 				for( num in array ){
 					var element = array[ num ];
 
@@ -49,14 +51,12 @@ class Message{
 						continue;
 					}
 
-					if( element.timeout > 1 ){
-						var tmp = obj.style.top.split( "px" );
-						var value = Number( tmp[0] ).toFixed() - Number( deleteYOffset ).toFixed();
-						obj.style.top = value + "px";
-					}
+					obj.style.top = y + "px";
+
+					y = Number( y ) + Number( obj.clientTop ) + Number( obj.clientHeight ) + 15;
 				}
 			}
-		}, 1000, this.messBoxes );
+		}, 500, this.messBoxes, this.yOffset );
 	}
 
 	setYOffset( value = 0 )
