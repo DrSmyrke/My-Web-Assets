@@ -94,13 +94,22 @@ function uploadForm( form, viewBoxID )
 		}
 	}
 
-	var formData = new FormData(form);
+	var formData = new FormData( form );
 	formRequest.open( "POST", form.action, false );
 	formRequest.send( formData );
 
 	viewBoxObj.innerHTML = formRequest.responseText;
 
 	return false;
+}
+
+function sendForm( form )
+{
+	var formData = new FormData( form );
+	formRequest.open( "POST", form.action, false );
+	formRequest.send( formData );
+
+	return JSON.parse( formRequest.responseText );
 }
 
 //<input type="tel" name="data[phone]" value="+7(___)___-__-__" onInput="phoneMask( this );">
