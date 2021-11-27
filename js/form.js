@@ -94,6 +94,8 @@ function uploadForm( form, viewBoxID )
 		}
 	}
 
+	viewBoxObj.innerHTML = '<img src="/data/images/loader.gif">';
+
 	var formData = new FormData( form );
 	formRequest.open( "POST", form.action, false );
 	formRequest.send( formData );
