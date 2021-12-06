@@ -11,52 +11,6 @@ class Message{
 		this.timeout	= 50;
 		this.yOffset	= 0;
 		this.maxBoxes	= 100;
-
-		this.timerID = setInterval( function( array, yOffset ){
-			var deleteF = false;
-			var deleteYOffset = 0;
-
-			for( var num in array ){
-				var element = array[ num ];
-
-				var obj = document.getElementById( "messBox" + element.id );
-				if( obj == undefined ){
-					console.error( "obj undefined", element, num );
-					continue;
-				}
-
-				if( element.timeout > 0 ){
-					element.timeout--;
-					if( element.timeout == 10 ){
-						obj.classList.remove( "animate__bounceInLeft" );
-						obj.classList.add( "animate__bounceOutLeft" );
-					}
-				}else{
-					deleteYOffset = obj.clientHeight + obj.clientTop;
-					obj.remove();	
-					array.splice( num, 1 );
-					deleteF = true;
-				}
-			}
-
-			if( deleteF ){
-				var y = Number( yOffset );
-
-				for( var num in array ){
-					var element = array[ num ];
-
-					var obj = document.getElementById( "messBox" + element.id );
-					if( obj == undefined ){
-						console.error( "obj undefined", element, num );
-						continue;
-					}
-
-					obj.style.top = y + "px";
-
-					y = Number( y ) + Number( obj.clientTop ) + Number( obj.clientHeight ) + 15;
-				}
-			}
-		}, 500, this.messBoxes, this.yOffset );
 	}
 
 	/**
@@ -70,6 +24,15 @@ class Message{
 	}
 
 	/**
+	 * getter yOffset
+	 * @returns {integer} minimum yOffset
+	 */
+	get getYOffset()
+	{
+		return this.yOffset;
+	}
+
+	/**
 	 * 
 	 * @returns {integer} new y offset
 	 */
@@ -78,7 +41,7 @@ class Message{
 		var yOffset		= this.yOffset;
 
 		if( this.messBoxes.length > 0 ){
-			for( num in this.messBoxes ){
+			for( var num in this.messBoxes ){
 				var element = this.messBoxes[ num ];
 
 				var obj = document.getElementById( "messBox" + element.id );
@@ -94,6 +57,57 @@ class Message{
 		return yOffset;
 	}
 
+	run()
+	{
+		this.timerID = setInterval( function( array, yOffset ){
+			var deleteF = false;
+			//var deleteYOffset = 0;
+
+			for( var num in array ){
+				var element = array[ num ];
+
+				var obj = document.getElementById( "messBox" + element.id );
+				if( obj == undefined ){
+					console.error( "obj undefined", element, num );
+					continue;
+				}
+
+				if( element.timeout > 0 ){
+					element.timeout--;
+					if( element.timeout == 1 ){
+						obj.classList.remove( "animate__bounceInLeft" );
+						obj.classList.add( "animate__bounceOutLeft" );
+					}
+				}else{
+					//deleteYOffset = obj.clientHeight + obj.clientTop;
+					obj.remove();	
+					array.splice( num, 1 );
+					deleteF = true;
+				}
+			}
+
+			if( deleteF ){
+				var y = yOffset;
+
+				for( var num in array ){
+					var element = array[ num ];
+
+					var obj = document.getElementById( "messBox" + element.id );
+					if( obj == undefined ){
+						console.error( "obj undefined", element, num );
+						continue;
+					}
+
+					if( y < yOffset ) y = yOffset;
+
+					obj.style.top = y + "px";
+
+					y = Number( y ) + Number( obj.clientTop ) + Number( obj.clientHeight ) + 15;
+				}
+			}
+		}, 500, this.messBoxes, this.yOffset );
+	}
+
 	getAvailableIndex()
 	{
 		var index = 0;
@@ -104,7 +118,7 @@ class Message{
 		for( var index = 0; index < this.maxBoxes; index++ ){
 			var find = false;
 
-			for( num in this.messBoxes ){
+			for( var num in this.messBoxes ){
 				if( index == this.messBoxes[ num ].id ){
 					find = true;
 					break;
