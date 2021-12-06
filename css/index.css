@@ -76,7 +76,6 @@ hr{
 	background-image: -moz-linear-gradient(left, #fff, #000, #fff);
 	background-image: -ms-linear-gradient(left, #fff, #000, #fff);
 	background-image: -o-linear-gradient(left, #fff, #000, #fff);
-
 }
 
 .block table{ width: 100%; }
