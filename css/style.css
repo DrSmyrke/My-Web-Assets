@@ -1,9 +1,19 @@
-.button{
-	display: inline-block;
+*, *:before, *:after { transition: .25s ease-in-out; }
+
+body{
+	transition: none;
+	background: #E6E4E7;
+	padding-right: 5px;
+	background-image: url("/images/line.png"), url("/images/fon.png");
+	margin: auto;
 }
-.button:hover{
-	transform: scale( 1.1 );
-	transition: all .218s ease 0s;
-	position: relative;
-	z-index: 999;
+
+.hidden{ display: none; }
+.unvisible{ visibility: hidden; }
+
+@media only screen and (max-width: 950px){
+
+}
+@media only screen and (max-width: 1170px){
+	
 }
