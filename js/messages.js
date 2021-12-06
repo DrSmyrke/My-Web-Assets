@@ -16,7 +16,7 @@ class Message{
 			var deleteF = false;
 			var deleteYOffset = 0;
 
-			for( num in array ){
+			for( var num in array ){
 				var element = array[ num ];
 
 				var obj = document.getElementById( "messBox" + element.id );
@@ -42,7 +42,7 @@ class Message{
 			if( deleteF ){
 				var y = Number( yOffset );
 
-				for( num in array ){
+				for( var num in array ){
 					var element = array[ num ];
 
 					var obj = document.getElementById( "messBox" + element.id );
@@ -59,12 +59,20 @@ class Message{
 		}, 500, this.messBoxes, this.yOffset );
 	}
 
+	/**
+	 * 
+	 * @param {*} value
+	 */
 	setYOffset( value = 0 )
 	{
 		this.yOffset = Number( value ).toFixed();
 		if( this.yOffset < 0 ) this.yOffset = 0;
 	}
 
+	/**
+	 * 
+	 * @returns {integer} new y offset
+	 */
 	getNewYOffset()
 	{
 		var yOffset		= this.yOffset;
