@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" id="svg-pattern-278" width="100%" height="100%"><defs><pattern x="0" y="0" width="34" height="58.5" patternUnits="userSpaceOnUse" id="pattern-278-layer-1"><g id="PatternRootContent1" transform="scale(0.25)"><rect class="fill0" width="136" height="234" fill="#f0d86c"></rect>
+<g class="fill1" fill="#907830">
+	<polygon points="73,234 85,234 85,219.1 136,189.7 136,183.9 85,213.3 85,204.7 136,175.5 136,161.5 73,197.8 	"></polygon>
+	<polygon points="129.3,234 136,230.1 136,224.4 126.8,229.6 	"></polygon>
+	<polygon points="113.5,229.6 136,216.6 136,210.9 111.1,225.3 	"></polygon>
+	<polygon points="97.8,225.2 136,203.2 136,197.4 95.3,220.9 	"></polygon>
+	<polygon points="0,161.5 0,175.5 0,175.5 7.3,179.7 0,183.9 0,189.7 12.3,182.6 51,205 51,234 63,234 63,197.8 
+		0,161.5 	"></polygon>
+	<polygon points="0,224.4 0,230.1 3.2,228.3 0.6,224 	"></polygon>
+	<polygon points="0,210.9 0,216.6 7,212.6 4.5,208.3 	"></polygon>
+	<polygon points="0,197.4 0,203.2 10.8,196.9 8.3,192.6 	"></polygon>
+	<path d="M131,80.8L68,44.5L5,80.8v72.5l63,36.3l63-36.3V80.8z M68,58.5l7.2,4.2L17,96.3v-8.6L68,58.5z M17,102.1
+		l63.2-36.5L119,88v43.9l-63.4,36.6L17,146.3V102.1z M68,175.7l-7.4-4.3l58.4-33.7v8.7L68,175.7z"></path>
+	<rect x="54.6" y="139.6" transform="matrix(0.866 -0.5 0.5 0.866 -59.9548 60.4757)" width="56.6" height="5"></rect>
+	<rect x="59.9" y="129.6" transform="matrix(0.866 -0.5 0.5 0.866 -55.7334 56.1476)" width="34" height="5"></rect>
+	<rect x="65.3" y="119.5" transform="matrix(0.866 -0.5 0.5 0.866 -51.5089 51.8139)" width="11.3" height="5"></rect>
+	<rect x="59.3" y="109.5" transform="matrix(0.866 -0.5 0.5 0.866 -47.2864 47.4838)" width="11.3" height="5"></rect>
+	<rect x="42" y="99.4" transform="matrix(0.866 -0.5 0.5 0.866 -43.0621 43.1504)" width="34" height="5"></rect>
+	<rect x="24.7" y="89.4" transform="matrix(0.866 -0.5 0.5 0.866 -38.839 38.8189)" width="56.6" height="5"></rect>
+	<polygon points="85,29.3 85,0 73,0 73,36.3 136,72.5 136,58.6 128.6,54.4 136,50.1 136,44.3 123.6,51.5 	"></polygon>
+	<polygon points="127.6,41.4 136,36.6 136,30.8 125.1,37.1 	"></polygon>
+	<polygon points="131.5,25.7 136,23.1 136,17.4 129,21.4 	"></polygon>
+	<polygon points="132.8,5.7 135.3,10 136,9.6 136,3.9 	"></polygon>
+	<polygon points="63,36.3 63,0 51,0 51,14.9 0,44.3 0,50.1 51,20.7 51,29.3 0,58.7 0,58.6 0,72.5 0,72.5 	"></polygon>
+	<polygon points="38.2,8.8 0,30.8 0,36.6 40.7,13.1 	"></polygon>
+	<polygon points="22.4,4.4 0,17.4 0,23.1 24.9,8.7 	"></polygon>
+	<polygon points="6.6,0 0,3.9 0,9.6 9.1,4.4 	"></polygon>
+</g></g></pattern></defs><rect width="100%" height="100%" id="RctSolidBackground1" fill="url(#pattern-278-layer-1)"></rect></svg>

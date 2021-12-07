@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" id="svg-pattern-289" width="100%" height="100%"><defs><pattern x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" id="pattern-289-layer-1"><g id="PatternRootContent1" transform="scale(1)"><rect class="fill0" width="40" height="40" fill="#f58345"></rect>
+<g class="fill1" fill="#58595b">
+	<polygon points="40,0 31.514,0 0,31.515 0,40 8.485,40 40,8.484 "></polygon>
+	<polygon points="40,31.514 31.514,40 40,40 "></polygon>
+	<polygon points="0,0 0,8.485 8.485,0 "></polygon>
+</g></g></pattern></defs><rect width="100%" height="100%" id="RctSolidBackground1" fill="url(#pattern-289-layer-1)"></rect></svg>
