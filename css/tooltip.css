@@ -2,8 +2,8 @@
 #tooltipBox {
 	width: auto;
 	max-width: 200px;
-	background-color: black;
-	color: #fff;
+	background-color: rgba( 30, 30, 30, 0.75 );
+	color: burlywood;
 	text-align: center;
 	padding: 5px;
 	border-radius: 6px;
@@ -19,3 +19,11 @@
 
 #tooltipBox.show{ opacity: 1; }
 #tooltipBox.hide{ opacity: 0; }
+
+@media only screen and (max-width: 500px){
+	#tooltipBox{ display: none; }
+}
+
+@media only screen and (max-height: 450px){
+	#tooltipBox{ display: none; }
+}
