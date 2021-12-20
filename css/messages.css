@@ -16,9 +16,9 @@
 }
 
 .messageBox.warning{
-	border: 2px dashed rgb(221, 234, 146);
+	border: 2px dashed rgb(251, 190, 73);
 	background: rgba(233, 234, 146, 0.75);
-	color: rgb(179, 255, 0);
+	color: rgb(210, 71, 71);
 }
 
 .messageBox.info{
