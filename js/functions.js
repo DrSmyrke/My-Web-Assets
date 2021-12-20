@@ -44,6 +44,36 @@ function removeClass( obj, name )
 	}
 }
 
+function copyTextToClipboard( text )
+{
+	if( !navigator.clipboard ){
+		var textArea = document.createElement( "textarea" );
+		textArea.value = text;
+		textArea.style.top = "0";
+		textArea.style.left = "0";
+		textArea.style.position = "fixed";
+		document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
+		try {
+			if( document.execCommand('copy') ){
+				message.success( "Link copying to clipboard was successful!" );
+			}else{
+				message.error( "Link copying to clipboard was unsuccessful!" );
+			}
+		} catch (err) {
+			message.error( "Fallback: Oops, unable to copy " + err );
+		}
+		document.body.removeChild(textArea);
+		return;
+	}
+	navigator.clipboard.writeText( text ).then( function(){
+		message.error( "Async: Copying to clipboard was successful!" );
+	}, function(err) {
+		message.error( "Async: Could not copy text: " + err );
+	});
+}
+
 
 
 /////////////////////////////////	COLOR		/////////////////////////////////////////////////////////////////
