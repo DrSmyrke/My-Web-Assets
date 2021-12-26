@@ -42,27 +42,9 @@ a{
 
 .a.selected, .a2.selected{ background: rgba( 100, 100, 100,0.4); }
 
-.languageButtons{
-	display: flex;
-	align-items: center;
-	position: absolute;
-	top: 12px;
-	right: 32px;
-}
-.languageButtons img{
-	cursor: pointer;
-	margin: 10px;
-}
-.languageButtons .selected{
-	-webkit-filter: drop-shadow(0px 0px 10px rgb(255, 156, 0));
-	-webkit-transition: all 0.5s linear;
-	-o-transition: all 0.5s linear;
-	transition: all 0.5s linear;
-}
-
 .info i{
 	color: gray;
-	fint-style: italic;
+	font-style: italic;
 	font-size:8pt;
 }
 
@@ -112,7 +94,6 @@ article h1{
 
 @media only screen and (max-width: 950px){
 	.block { width: 95%; margin: 25px auto; display: block; max-height: none; overflow: none; }
-	.languageButtons{ display: block; text-align: center; position: static; }
 }
 @media only screen and (max-width: 1170px){
 	.content, .logo {width: 96%;}
