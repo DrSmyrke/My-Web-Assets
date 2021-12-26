@@ -94,6 +94,92 @@ function canvas_setEffect( effect, canvas, value )
 	return newCanvas;
 }
 
+/**
+ * Rendering the progress bar in the pixelart style
+ * 
+ * @param {string} id - Canvas ID
+ * @param {number} count - Number of progress bar blocks
+ * @param {number} xWidth - Block width
+ * @param {number} yHeight - Block height
+ * @param {string} color - Color theme { blue, red, green, orange }
+ */
+ function reDrawPixelBar( id, count, xWidth, yHeight, color )
+ {
+	var canvas = document.getElementById( id );
+	if( canvas == undefined ) return;
+	if( canvas.tagName == undefined ) return;
+	if( canvas.tagName != "CANVAS" ) return;
+ 
+	var prz			= Number( canvas.getAttribute( "data-prz" ) ).toFixed();
+	 
+	var offset		= 3;
+	var count		= Number( count );
+	var przDelta	= 100 / count;
+	var przCount	= Math.ceil( prz / przDelta );
+	var xWidth		= Number( xWidth );
+	var yHeight		= Number( yHeight );
+	console.log( yHeight );
+	var width		= Number( Number( xWidth ) * Number( count ) ) + ( Number( offset ) * Number( ( Number( count ) + 1 ) ) );
+	//var height	= yHeight + ( offset * 2 );
+	var height		= Number( yHeight ) + ( offset * 2 );
+
+	console.log( width );
+	canvas.width	= width;
+	canvas.height	= height;
+	var yHeightM	= Math.trunc( yHeight / 5 );
+	var ctx			= canvas.getContext('2d');
+	var red			= Array( "#fa5538", "#feab9f", "#e42920", "#d53025", "#a71b24" );
+	var green		= Array( "#79e215", "#9df048", "#6dd11c", "#69c511", "#478a0c" );
+	var orange		= Array( "#fe9400", "#feb33f", "#e78302", "#ca7b04", "#aa6800" );
+	var blue		= Array( "#67e4fe", "#9ef1fd", "#1ecffe", "#1dcefe", "#17c0ed" );
+	var tColor		= Array( "#000000", "#000000", "#000000", "#000000", "#000000" );
+ 
+	switch( color ){
+		case "blue":
+			for( var i = 0; i < blue.length; i++ ) tColor[ i ] = blue[ i ];
+		break;
+		case "red":
+			for( var i = 0; i < red.length; i++ ) tColor[ i ] = red[ i ];
+		break;
+		case "green":
+			for( var i = 0; i < green.length; i++ ) tColor[ i ] = green[ i ];
+		break;
+		case "orange":
+			for( var i = 0; i < orange.length; i++ ) tColor[ i ] = orange[ i ];
+		break;
+	}
+ 
+ 
+	ctx.fillStyle = "#918c84";
+	ctx.fillRect( 0, 0, width, height );
+ 
+	ctx.clearRect( 0, 0, offset, offset );
+	ctx.clearRect( width - offset, 0, width, offset );
+	ctx.clearRect( 0, height - offset, offset, height );
+	ctx.clearRect( width - offset, height - offset, width, height );
+ 
+	var x = offset;
+	for( var i = 0; i < count; i++ ){
+		ctx.clearRect( x, offset, xWidth, yHeight );
+		x += xWidth;
+		x += offset;
+	}
+ 
+	 
+	x = offset;
+	for( var i = 0; i < przCount; i++ ){
+		var y = offset;
+		for( var j = 0; j < 5; j++ ){
+			ctx.fillStyle = tColor[ j ];
+			ctx.fillRect( x, y, xWidth, yHeightM );
+			y += yHeightM;
+		}
+		 
+		x += xWidth;
+		x += offset;
+	}
+ }
+
 function canvas_getClippedRegion( image, x, y, width, height )
 {
 	var tempCanvas = document.createElement('canvas');

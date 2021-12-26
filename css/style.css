@@ -1,11 +1,52 @@
 *, *:before, *:after { transition: .25s ease-in-out; }
-
 body{
 	transition: none;
 	background: #E6E4E7;
 	padding-right: 5px;
 	background-image: url("/images/line.png"), url("/images/fon.png");
 	margin: auto;
+	max-width: 1440px;
+}
+a{
+	text-decoration:none;
+	outline:none;
+	-webkit-transition-property:all;
+	-moz-transition-property:all;
+	-o-transition-property:all;
+	transition-property:all;
+	-webkit-transition-duration:0.25s;
+	-moz-transition-duration:0.25s;
+	-o-transition-duration:0.25s;
+	transition-duration:0.25s;
+	color: #8BBF52;
+}
+
+.mainMenu{
+	display: flex;
+	align-items: center;
+}
+
+.a, .a2{
+	background: rgba(114,219,32,0.8);
+	color: white;
+	padding: 5px;
+	margin: 10px;
+}
+
+.a2{
+	background: rgba( 168, 138, 182, 0.8);
+	padding: 1px 5px;
+}
+
+.a:hover{ background: rgba(114,219,32,0.2); }
+.a2:hover{ background: rgba(168,138,182,0.2); }
+
+.a.selected, .a2.selected{ background: rgba( 100, 100, 100,0.4); }
+
+.info i{
+	color: gray;
+	font-style: italic;
+	font-size:8pt;
 }
 
 .hidden{ display: none; }
@@ -20,9 +61,42 @@ hr{
 	background-image: -o-linear-gradient(left, #fff, #000, #fff);
 }
 
-@media only screen and (max-width: 950px){
+.block table{ width: 100%; }
 
+.time{
+	font-style:italic;
+	color:#bbb;
+	font-size:10pt;
+	display:block;
+	margin-bottom:10px;
+}
+
+.table{ border-collapse: collapse; }
+.table tr{ border-bottom: 1px solid silver; }
+.table tr:last-child{ border: none; }
+.table .size{ width: 80px; }
+.table tr:nth-child(odd){
+	background: rgba( 100, 100, 100, 0.25 );
+}
+
+
+
+article img{
+	box-shadow: 3px 3px 1px silver, -3px -3px 1px silver;
+}
+
+article {
+	text-align: left;
+	padding: 5px;
+}
+article h1{
+	margin: 5px 0px;
+}
+
+@media only screen and (max-width: 950px){
+	.block { width: 95%; margin: 25px auto; display: block; max-height: none; overflow: none; }
 }
 @media only screen and (max-width: 1170px){
-	
+	.content, .logo {width: 96%;}
 }
+/* @media only screen and (orientation:portrait){ .menu .a {display: block; width: 95%; margin: auto; margin-bottom: 5px;} } */
