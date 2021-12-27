@@ -66,6 +66,7 @@ function initSnow() {
 		snow[i].style.left = snow[i].posX + "px";
 		snow[i].style.top = snow[i].posY + "px";
 		snow[i].style.transition = "none";
+		snow[i].className = "snow";
 	}
 
 	moveSnow();
