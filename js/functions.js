@@ -44,6 +44,32 @@ function removeClass( obj, name )
 	}
 }
 
+//-------------------------------------------------------
+/**
+ * 
+ * @param {object} newNode 
+ * @param {object} referenceNode 
+ */
+ function insertAfter( newNode, referenceNode )
+ {
+	 if( app.debug ) console.log( "insertAfter >:", newNode, referenceNode );
+ 
+	 if( newNode == undefined ){
+		 console.error( "newNode undefined" );
+		 return;
+	 }
+	 if( referenceNode == undefined ){
+		 console.error( "referenceNode undefined" );
+		 return;
+	 }
+	 if( referenceNode.nextSibling == null ){
+		 console.error( "referenceNode.nextSibling null" );
+		 return;
+	 }
+ 
+	 referenceNode.parentNode.insertBefore( newNode, referenceNode.nextSibling );
+ }
+
 function copyTextToClipboard( text )
 {
 	if( !navigator.clipboard ){
