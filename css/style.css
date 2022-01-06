@@ -49,7 +49,7 @@ a{
 	font-size:8pt;
 }
 
-.hidden{ display: none; }
+.hidden{ display: none !important; }
 .unvisible{ visibility: hidden; }
 
 hr{
