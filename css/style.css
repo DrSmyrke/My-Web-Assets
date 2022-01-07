@@ -2,7 +2,6 @@
 body{
 	transition: none;
 	background: #E6E4E7;
-	padding-right: 5px;
 	background-image: url("/images/line.png"), url("/images/fon.png");
 	margin: auto;
 	max-width: 1440px;
@@ -66,7 +65,6 @@ hr{
 .block{
 	width: 43%;
 	display: inline-block;
-	padding: 10px;
 	vertical-align: top;
 	margin: 10px;
 }
@@ -81,11 +79,8 @@ hr{
 	background-color: rgba(100,100,100,0.05);
 	overflow: auto;
 	max-height: 520px;
-	border-radius: 5px;
 	text-align: left;
-	padding: 5px;
 	border: 10px solid transparent;
-	padding: 5px;
 	border-image: url( "/images/square.png" ) round;
 	border-image-slice: 20;
 }
@@ -117,16 +112,18 @@ article img{
 
 article {
 	text-align: left;
-	padding: 5px;
+	margin: 5px;
 }
 article h1{
 	margin: 5px 0px;
 }
 
 @media only screen and (max-width: 950px){
-	.block { width: 95%; margin: 25px auto; display: block; max-height: none; overflow: none; }
+	.block { width: 95%; margin: 25px 20px; display: block; max-height: none; overflow: none; }
+	.block .content { overflow: unset; }
 }
 @media only screen and (max-width: 1170px){
+	body{ max-width: auto; }
 	.content, .logo {width: 96%;}
 }
 /* @media only screen and (orientation:portrait){ .menu .a {display: block; width: 95%; margin: auto; margin-bottom: 5px;} } */
