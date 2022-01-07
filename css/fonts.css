@@ -20,6 +20,12 @@
 }
 
 @font-face{
+	font-family: 'PressStart2P';
+	src: url( '/fonts/PressStart2P.ttf' );
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face{
 	font-family: 'SourceCodePro';
 	src: url( '/fonts/SourceCodePro-Regular.ttf' );
 	font-weight: normal;
