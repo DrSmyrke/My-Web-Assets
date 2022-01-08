@@ -60,6 +60,11 @@ hr{
 	background-image: -o-linear-gradient(left, #fff, #000, #fff);
 }
 
+footer{
+	display: flex;
+	justify-content: center;
+}
+
 
 
 .block{
