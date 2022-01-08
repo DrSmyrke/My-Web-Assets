@@ -68,7 +68,7 @@ hr{
 	vertical-align: top;
 	margin: 10px;
 }
-.block .legend{
+.legend, legend{
 	text-transform: uppercase;
 	margin: 0px;
 	text-shadow: 1px 1px 0px black;
