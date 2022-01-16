@@ -114,6 +114,20 @@ function sendForm( form )
 	return JSON.parse( formRequest.responseText );
 }
 
+//----------------------------------------------------------------
+function emailPnoheMask( input )
+{
+	let val = input.value;
+
+	if( val[ 0 ] == "+" ){
+		phoneMask( input );
+	}else{
+		var re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+		var valid = re.test( val );
+    	input.style.color = ( valid ) ? "green" : "red";
+	}
+}
+
 //<input type="tel" name="data[phone]" value="+7(___)___-__-__" onInput="phoneMask( this );">
 function phoneMask( input )
 {
