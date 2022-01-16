@@ -130,5 +130,5 @@ function phoneMask( input )
 	});
 	arr.length < 10 ? input.style.color = 'red' : input.style.color = 'green';
 	input.value = patStringArr.join('');
-	n ? v.setSelectionRange(n + 1, n + 1) : input.setSelectionRange(17, 17)
+	n ? input.setSelectionRange(n + 1, n + 1) : input.setSelectionRange(17, 17)
 }
