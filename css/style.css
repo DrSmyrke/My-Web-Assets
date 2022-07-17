@@ -82,6 +82,7 @@ footer{
 }
 .block .content{
 	background-color: rgba(100,100,100,0.05);
+	background-clip: padding-box;
 	overflow: auto;
 	max-height: 520px;
 	text-align: left;
