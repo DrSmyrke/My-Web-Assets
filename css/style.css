@@ -79,7 +79,14 @@ footer{
 	text-shadow: 1px 1px 0px black;
 	color: orange !important;
 	text-align: left;
+	display: flex;
 }
+.legend .fill, legend .fill{
+	background: url("/images/stripe.png") repeat-x 100% 50%;
+	flex-grow: 1;
+	margin-left: 5px;
+}
+
 .block .content{
 	background-color: rgba(100,100,100,0.05);
 	background-clip: padding-box;
