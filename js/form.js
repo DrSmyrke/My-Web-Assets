@@ -111,21 +111,7 @@ function sendForm( form )
 	formRequest.open( "POST", form.action, false );
 	formRequest.send( formData );
 
-	return JSON.parse( formRequest.responseText );
-}
-
-//----------------------------------------------------------------
-function emailPnoheMask( input )
-{
-	let val = input.value;
-
-	if( val[ 0 ] == "+" ){
-		phoneMask( input );
-	}else{
-		var re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
-		var valid = re.test( val );
-    	input.style.color = ( valid ) ? "green" : "red";
-	}
+	return JSON.parse( ( formRequest.responseText != '' ) ? formRequest.responseText : '{}' );
 }
 
 //<input type="tel" name="data[phone]" value="+7(___)___-__-__" onInput="phoneMask( this );">
@@ -144,5 +130,5 @@ function phoneMask( input )
 	});
 	arr.length < 10 ? input.style.color = 'red' : input.style.color = 'green';
 	input.value = patStringArr.join('');
-	n ? input.setSelectionRange(n + 1, n + 1) : input.setSelectionRange(17, 17)
+	n ? v.setSelectionRange(n + 1, n + 1) : input.setSelectionRange(17, 17)
 }
