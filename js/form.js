@@ -105,13 +105,23 @@ function uploadForm( form, viewBoxID )
 	return false;
 }
 
-function sendForm( form )
+//-------------------------------------------------------------------------------------------------------
+function sendForm( form, callback = undefined )
 {
+	var request = makeHttpObject();
 	var formData = new FormData( form );
-	formRequest.open( "POST", form.action, false );
-	formRequest.send( formData );
+	request.open( form.method, form.action, true );
+	request.send( formData );
 
-	return JSON.parse( ( formRequest.responseText != '' ) ? formRequest.responseText : '{}' );
+	request.onreadystatechange = function(){
+		if( request.readyState == 4 ){
+			if( request.status == 200 ){
+				if( app.debug ) console.log( 'sendForm >:', request.responseText );
+				let dataObject = JSON.parse( ( request.responseText != '' ) ? request.responseText : '{}' );
+				if( callback != undefined ) callback( dataObject );
+			}
+		}
+	};
 }
 
 //-------------------------------------------------------------------------------------------------------
