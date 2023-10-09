@@ -125,6 +125,63 @@ function sendForm( form, callback = undefined )
 }
 
 //-------------------------------------------------------------------------------------------------------
+/**
+ * Send data method
+ * @param {String} method (default: 'POST')
+ * @param {String} target (default: '.')
+ * @param {FormData} formData (default: null)
+ * @param {Function} callback (default: undefined)
+ * @param {Boolean} raw (default: false)
+ * @param {Boolean} async (default: true)
+ * @param {Object} headers (default: {})
+ * @returns 
+ */
+function sendFormData( method = 'POST', target = '.', formData = null, callback = undefined, raw = false, async = true, headers = {} )
+{
+	formRequest.open( method, target, async );
+	for( let key in headers ){
+		formRequest.setRequestHeader( key, headers[ key ] );
+	}
+	showMiniPreloader();
+	formRequest.send( formData );
+
+	if( !async ){
+		if( raw ){
+			return formRequest.responseText;
+		}else{
+			return JSON_Parse( formRequest.responseText );
+		}
+	}else{
+		formRequest.onreadystatechange = function(){
+			if( formRequest.readyState == 4 ){
+				if( formRequest.status == 200 ){
+					if( app.debug ) console.log( 'sendFormData >:', formRequest.responseText );
+
+					var dataObject = JSON_Parse( formRequest.responseText );
+
+					if( callback != undefined ){
+						if( raw ){
+							callback( formRequest.responseText );
+						}else{
+							callback( dataObject );
+						}
+					}else{
+						if( dataObject.hasOwnProperty( 'success' ) && dataObject.hasOwnProperty( 'message' ) ){
+							if( dataObject.success ){
+								message.success( dataObject.message );
+							}else{
+								message.error( dataObject.message );
+							}
+						}
+					}
+				}
+				hideMiniPreloader();
+			}
+		};
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------
 //<input type="tel" name="data[phone]" value="+7(___)___-__-__" onInput="phoneMask( this );">
 function phoneMask( input )
 {

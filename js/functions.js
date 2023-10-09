@@ -100,6 +100,52 @@ function copyTextToClipboard( text )
 	});
 }
 
+// -------------------------------------------------------------
+/**
+ * Method for parse string to object
+ * @param {String} string (default:{})
+ * @returns 
+ */
+function JSON_Parse( string = '{}' )
+{
+	if( app.debug && app.debugAll ) console.log( 'JSON_Parse', string );
+
+	let object = undefined;
+
+	try {
+		object = JSON.parse( string );
+	}catch( e ){
+		object = JSON.parse( '{}' );
+	}
+
+	return object;
+}
+
+// -------------------------------------------------------------
+/**
+ * Method for copy objects
+ * @param {Object} object (default:{})
+ * @returns {Object} (if errors:{})
+ */
+function copyObject( object = {} )
+{
+	if( app.debug && app.debugAll ) console.log( 'copyObject', object );
+
+	try {
+		object = JSON.stringify( object );
+	}catch( e ){
+		object = JSON.stringify( {} );
+	}
+
+	try {
+		object = JSON.parse( object );
+	}catch( e ){
+		object = JSON.parse( '{}' );
+	}
+
+	return object;
+}
+
 
 
 /////////////////////////////////	COLOR		/////////////////////////////////////////////////////////////////
