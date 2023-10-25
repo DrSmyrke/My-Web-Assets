@@ -1,12 +1,14 @@
 class Tooltip{
 	init;
 	tooltipID;
+	pageOffset;
 
 	constructor()
 	{
 		this.init				= false;
 		this.tooltipID			= 'tooltipBox';
 		this.tooltipObj			= undefined;
+		this.pageOffset			= 5;
 	}
 
 	/**
@@ -25,8 +27,27 @@ class Tooltip{
 
 		if( event.clientY != undefined ){
 			var scroll = this.#getScroll();
-			this.tooltipObj.style.top = ( event.clientY + 5 + scroll[1] ) + "px";
-			this.tooltipObj.style.left = ( event.clientX + 3 + scroll[0] ) + "px";
+			let x = event.clientX + 5 + scroll[ 0 ];
+			let y = event.clientY + 5 + scroll[ 1 ];
+			let pageWidth = Math.max(
+				document.body.scrollWidth, document.documentElement.scrollWidth,
+				document.body.offsetWidth, document.documentElement.offsetWidth,
+				document.body.clientWidth, document.documentElement.clientWidth
+			);
+			let pageHeight = Math.max(
+				document.body.scrollHeight, document.documentElement.scrollHeight,
+				document.body.offsetHeight, document.documentElement.offsetHeight,
+				document.body.clientHeight, document.documentElement.clientHeight
+			);
+			
+			let rx = ( x + this.tooltipObj.clientWidth + this.pageOffset ) - pageWidth;
+			let ry = ( y + this.tooltipObj.clientHeight + this.pageOffset ) - pageHeight;
+
+			if( rx > 0 ) x -= rx;
+			if( ry > 0 ) y -= ry;
+
+			this.tooltipObj.style.top = y + 'px';
+			this.tooltipObj.style.left = x + 'px';
 
 			event.target.object = this;
 			event.target.addEventListener( 'mouseout', function( event ){ this.object.hide( event ); } );
@@ -79,15 +100,11 @@ class Tooltip{
 	 */
 	#getScroll()
 	{
-		if( window.pageYOffset != undefined ){
-			return [pageXOffset, pageYOffset];
-		}else{
-			let sx, sy, d = document,
-				r = d.documentElement,
-				b = d.body;
-			sx = r.scrollLeft || b.scrollLeft || 0;
-			sy = r.scrollTop || b.scrollTop || 0;
-			return [sx, sy];
-		}
+		let sx, sy, d = document,
+			r = d.documentElement,
+			b = d.body;
+		sx = r.scrollLeft || b.scrollLeft || 0;
+		sy = r.scrollTop || b.scrollTop || 0;
+		return [sx, sy];
 	}
 }
