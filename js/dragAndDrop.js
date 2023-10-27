@@ -17,21 +17,17 @@ document.addEventListener( 'dragstart', event => {
 });
   
 document.addEventListener( 'dragover', event => {
-	// prevent default to allow drop
 	event.preventDefault();
 });
   
 document.addEventListener( 'drop', (evt) => {
-	// prevent default action (open as link for some elements)
 	evt.preventDefault();
-	// move dragged element to the selected drop target
 	let dropzone = evt.target;
-	
 
-	// Если перетаскиваем в дроп зону
+
 	if( dropzone.classList.contains( 'dropzone' ) ) {
-		// Проверяем разрешено ли нам сюда дропаться
 		let access = dropzone.getAttribute( 'access' );
+		if( access == null ) access = '';
 		dragData.acl = access.split( ',' );
 		
 		try {
@@ -50,22 +46,34 @@ document.addEventListener( 'drop', (evt) => {
 			}
 		}
 
-		// console.warn( access, type, dragData.acl, dragData, evt );
 		dragData.draggedElement.classList.remove( 'dragable' );
 		dropzone.classList.remove( 'dragable' );
 
 		if( access ){
 			dragData.newParentElement = dropzone;
 			if( dragData.callBack != undefined ) access = dragData.callBack( dragData.draggedElement, dragData, evt );
-			// dragData.draggedElement = undefined;
-			// dragData.oldParentElement = undefined;
-			// dragData.newParentElement = undefined;
-			// dragData.callBack = undefined;
-			// dragData.type = undefined;
 		}else{
 			console.log( dragData.acl );
-			message.error( 'Это сюда дропать нельзя' );
+			app.messages.error( 'Это сюда дропать нельзя' );
 		}
+	}else if( dragData.draggedElement.parentNode.classList.contains( 'window' ) ){
+		evt.preventDefault();
+
+		const x = Number( evt.dataTransfer.getData('x') );
+		const y = Number( evt.dataTransfer.getData('y') );
+		
+		let draggableElement = dragData.draggedElement.parentNode;
+
+		let ex = ( evt.clientX - x );
+		let ey = ( evt.clientY - y );
+
+		ex = Math.round( ex / 10 ) * 10;
+		ey = Math.round( ey / 10 ) * 10;
+
+		draggableElement.style.left = ex + "px";
+		draggableElement.style.top = ey + "px";
+
+		evt.dataTransfer.clearData();
 	}
 });
 
