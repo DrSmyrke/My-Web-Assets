@@ -4,13 +4,29 @@ class Message{
 	timeout;
 	yOffset;
 	maxBoxes;
+	init;
 
 	constructor()
 	{
-		this.messBoxes	= Array();
-		this.timeout	= 50;
-		this.yOffset	= 0;
-		this.maxBoxes	= 100;
+		this.init				= false;
+		this.messBoxes			= Array();
+		this.timeout			= 50;
+		this.yOffset			= 0;
+		this.maxBoxes			= 100;
+	}
+
+	/**
+	 * Initialize method
+	 * @param none
+	 * @return none
+	 */
+	#init()
+	{
+		let style = document.createElement( 'style' );
+		style.innerHTML = '.messageBox{ border: 2px dashed rgb(36, 173, 84); background: rgba( 112, 216, 148, 0.85 ); color: rgb(0, 109, 0); position: fixed; left: -1500px; top: 72px; z-index: 1000; padding: 5px 15px; } .messageBox.error{ border: 2px dashed rgb( 234, 146, 146 ); background: rgba( 234, 146, 146, 0.85 ); color: rgb(147, 44, 44); } .messageBox.warning{ border: 2px dashed rgb(221, 234, 146); background: rgba(233, 234, 146, 0.85); color: rgb(121, 156, 41) .messageBox.info{ border: 2px dashed rgb(146, 206, 234); background: rgba(146, 214, 234, 0.85); color: rgb(56, 98, 160); }';
+		document.body.appendChild( style );
+
+		this.init = true;
 	}
 
 	/**
@@ -151,7 +167,7 @@ class Message{
 
 		var div = document.createElement( "div" );
 
-		div.className	= "animated animate__bounceInLeft messageBox info";
+		div.className	= "animate__animated animate__bounceInLeft messageBox info";
 		div.lang		= div.className;
 		div.innerHTML	= message;
 		div.id			= "messBox" + index;
@@ -172,7 +188,7 @@ class Message{
 
 		var div = document.createElement( "div" );
 
-		div.className	= "animated animate__bounceInLeft messageBox warning";
+		div.className	= "animate__animated animate__bounceInLeft messageBox warning";
 		div.lang		= div.className;
 		div.innerHTML	= message;
 		div.id			= "messBox" + index;
@@ -193,7 +209,7 @@ class Message{
 
 		var div = document.createElement( "div" );
 
-		div.className	= "animated animate__bounceInLeft messageBox error";
+		div.className	= "animate__animated animate__bounceInLeft messageBox error";
 		div.lang		= div.className;
 		div.innerHTML	= message;
 		div.id			= "messBox" + index;
@@ -214,7 +230,7 @@ class Message{
 
 		var div = document.createElement( "div" );
 
-		div.className	= "animated animate__bounceInLeft messageBox";
+		div.className	= "animate__animated animate__bounceInLeft messageBox";
 		div.lang		= div.className;
 		div.innerHTML	= message;
 		div.id			= "messBox" + index;
