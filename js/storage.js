@@ -36,13 +36,14 @@ class Storage{
 	 * @param {string} table
 	 * @param {string} key
 	 * @param {string} value
+	 * @param {String} string if data can`t reading or data not found (default: '{}')
 	 * @return dataArray or undefined if error
 	 */
-	saveToStorage( table = '', key = '', value = undefined )
+	saveToStorage( table = '', key = '', value = undefined, ifNull = '{}' )
 	{
-		if( this.debug ) console.log( 'saveToStorage', this.storage, table, key, value );
+		if( this.debug ) console.log( 'saveToStorage', this.storage, table, key, value, ifNull );
 		if( table == '' || key == '' ) return;
-		let data = this.getStorageData( table );
+		let data = this.getStorageData( table, ifNull );
 
 		let find = false;
 		for( let indx in data ){
@@ -65,7 +66,7 @@ class Storage{
 		if( !find ){
 			if( typeof data == 'object' ){
 				if( value == undefined ){
-					data.push( key );
+					data = this.copyObject( key );
 				}else{
 					data[ key ] = this.copyObject( value );
 				}
