@@ -45,8 +45,6 @@ class Storage{
 		if( table == '' || key == '' ) return;
 		let data = this.getStorageData( table, ifNull );
 
-		console.warn( data );
-
 		let find = false;
 		for( let indx in data ){
 			if( value == undefined ){
