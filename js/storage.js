@@ -45,6 +45,8 @@ class Storage{
 		if( table == '' || key == '' ) return;
 		let data = this.getStorageData( table, ifNull );
 
+		console.warn( data );
+
 		let find = false;
 		for( let indx in data ){
 			if( value == undefined ){
@@ -54,7 +56,7 @@ class Storage{
 				}
 			}else{
 				if( indx == key ){
-					if( typeof data == 'object' ){
+					if( data.constructor.name == 'Object' ){
 						data[ indx ] = this.copyObject( value );
 					}
 					find = true;
@@ -64,13 +66,13 @@ class Storage{
 		}
 
 		if( !find ){
-			if( typeof data == 'object' ){
+			if( data.constructor.name == 'Object' ){
 				if( value == undefined ){
 					data = this.copyObject( key );
 				}else{
 					data[ key ] = this.copyObject( value );
 				}
-			}else if( typeof data == 'array' ){
+			}else if( data.constructor.name == 'Array' ){
 				data.push( key );
 			}
 		}
@@ -93,7 +95,7 @@ class Storage{
 		if( table == '' || key == '' ) return;
 		let data = this.getStorageData( table );
 
-		if( typeof data == 'object' ){
+		if( data.constructor.name == 'Object' ){
 			if( key == '*' ){
 				if( table == 'elements' ){
 					data = [];
@@ -103,7 +105,7 @@ class Storage{
 			}else{
 				delete data[ key ];
 			}
-		}else if( typeof data == 'array' ){
+		}else if( data.constructor.name == 'Array' ){
 			data.splice( Number( key ), 1 );
 		}
 	
