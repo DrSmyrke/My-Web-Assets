@@ -104,7 +104,12 @@ class Storage{
 				delete data[ key ];
 			}
 		}else if( data.constructor.name == 'Array' ){
-			data.splice( Number( key ), 1 );
+			for( let i = 0; i < data.length; i++ ){
+				if( data[ i ] == key ){
+					data.splice( i, 1 );
+					break;
+				}
+			}
 		}
 	
 		this.storage.setItem( table, JSON.stringify( data ) );
