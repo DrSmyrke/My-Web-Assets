@@ -82,12 +82,13 @@ class Storage{
 	 * Remove data from storage
 	 * @param {string} table
 	 * @param {string} key
+	 * @param {string} value
 	 * @param {String} string if data can`t reading or data not found (default: '{}')
 	 * @return dataArray or undefined if error
 	 */
-	removeFromStorage( table = '', key = '', ifNull = '{}' )
+	removeFromStorage( table = '', key = '', value = undefined, ifNull = '{}' )
 	{
-		if( this.debug ) console.log( 'removeFromStorage >:', this.storage, table, key, ifNull );
+		if( this.debug ) console.log( 'removeFromStorage >:', this.storage, table, key, value, ifNull );
 		if( table == '' || key == '' ) return;
 		let data = this.getStorageData( table, ifNull );
 
@@ -102,16 +103,20 @@ class Storage{
 				delete data[ key ];
 			}
 		}else if( data.constructor.name == 'Array' ){
-			for( let i = 0; i < data.length; i++ ){
-				if( data[ i ] == key ){
-					data.splice( i, 1 );
-					break;
+			if( value != undefined ){
+				for( let i = 0; i < data.length; i++ ){
+					if( data[ i ] == value ){
+						data.splice( i, 1 );
+						break;
+					}
 				}
+			}else{
+				data.splice( Number( key ), 1 );
 			}
 		}
 	
 		this.storage.setItem( table, JSON.stringify( data ) );
-		if( this.debug ) console.log( 'removeFromStorage >:', this.storage, table, key, ifNull );
+		if( this.debug ) console.log( 'removeFromStorage >:', this.storage, table, key, value, ifNull );
 	}
 
 	//-------------------------------------------------------------
