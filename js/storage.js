@@ -54,9 +54,7 @@ class Storage{
 				}
 			}else{
 				if( indx == key ){
-					if( data.constructor.name == 'Object' ){
-						data[ indx ] = this.copyObject( value );
-					}
+					data[ indx ] = this.copyObject( value );
 					find = true;
 					break;
 				}
