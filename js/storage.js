@@ -89,7 +89,7 @@ class Storage{
 	{
 		if( this.debug ) console.log( 'removeFromStorage >:', this.storage, table, key, value );
 		if( table == '' || key == '' ) return;
-		let data = this.getStorageData( table );
+		let data = this.getStorageData( table, ifNull );
 
 		if( data.constructor.name == 'Object' ){
 			if( key == '*' ){
