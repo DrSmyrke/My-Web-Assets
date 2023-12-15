@@ -2,14 +2,14 @@ function canvas_setEffect( effect, canvas, value )
 {
 	if( effect == undefined || canvas == undefined ) return;
 	
-	var newCanvas										= document.createElement( "canvas" );
+	var newCanvas										= document.createElement( 'canvas' );
 	var canvasContext									= canvas.getContext('2d');
 	newCanvas.width										= canvas.width;
 	newCanvas.height									= canvas.height;
-	var newContext										= newCanvas.getContext("2d");
+	var newContext										= newCanvas.getContext('2d');
 
 	switch( effect ){
-		case "pixelate":
+		case 'pixelate':
 			var msImageSmoothingEnabled					= canvasContext.msImageSmoothingEnabled;
 			var mozImageSmoothingEnabled				= canvasContext.mozImageSmoothingEnabled;
 			var webkitImageSmoothingEnabled				= canvasContext.webkitImageSmoothingEnabled;
@@ -28,7 +28,7 @@ function canvas_setEffect( effect, canvas, value )
 			//canvasContext.drawImage( newCanvas, 0, 0, canvas.width, canvas.height );
 			//newCanvas.remove();
 		break;
-		case "outline":
+		case 'outline':
 			var myImg = canvasContext.getImageData( 0, 0, canvas.width, canvas.height );
 
 			for( var y = 0; y < canvas.height; y++ ){
@@ -58,29 +58,29 @@ function canvas_setEffect( effect, canvas, value )
 
 			newContext.putImageData( myImg, 0, 0 );
 		break;
-		case "brightness":
+		case 'brightness':
 			newContext.filter = 'brightness(' + value + '%)';
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
-		case "contrast":
+		case 'contrast':
 			newContext.filter = 'contrast(' + value + '%)';
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
-		case "saturation":
+		case 'saturation':
 			newContext.filter = 'saturate(' + value + '%)';
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
-		case "blur":
+		case 'blur':
 			newContext.filter = 'blur(' + value + 'px)';
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
-		case "borderShadow":
+		case 'borderShadow':
 			newContext.filter = 'drop-shadow(0px 0px 4px black)';
 			newContext.shadowBlur = 2;
-			newContext.shadowColor = "rgba(0, 0, 0)";
+			newContext.shadowColor = 'rgba(0, 0, 0)';
 			newContext.drawImage( canvas, 0, 0, newCanvas.width, newCanvas.height );
 		break;
-		case "mirrorHorizontal":
+		case 'mirrorHorizontal':
 			newContext.save();
 			newContext.translate( 0, 0 );
 			newContext.scale( -1, 1 );
@@ -102,74 +102,82 @@ function canvas_setEffect( effect, canvas, value )
  * @param {number} xWidth - Block width
  * @param {number} yHeight - Block height
  * @param {string} color - Color theme { blue, red, green, orange }
+ * @param {boolean} border - Drawing border outline (default: false)
  */
- function reDrawPixelBar( id, count, xWidth, yHeight, color )
+ function reDrawPixelBar( id, count, xWidth, yHeight, color, border = false )
  {
 	var canvas = document.getElementById( id );
 	if( canvas == undefined ) return;
 	if( canvas.tagName == undefined ) return;
-	if( canvas.tagName != "CANVAS" ) return;
+	if( canvas.tagName != 'CANVAS' ) return;
  
-	var prz			= Number( canvas.getAttribute( "data-prz" ) ).toFixed();
+	var prz						= Number( canvas.getAttribute( 'data-prz' ) ).toFixed();
 	 
-	var offset		= 3;
-	var count		= Number( count );
-	var przDelta	= 100 / count;
-	var przCount	= Math.ceil( prz / przDelta );
-	var xWidth		= Number( xWidth );
-	var yHeight		= Number( yHeight );
-	console.log( yHeight );
-	var width		= Number( Number( xWidth ) * Number( count ) ) + ( Number( offset ) * Number( ( Number( count ) + 1 ) ) );
-	//var height	= yHeight + ( offset * 2 );
-	var height		= Number( yHeight ) + ( offset * 2 );
+	var offset					= 3;
+	var count					= Number( count );
+	var przDelta				= 100 / count;
+	var przCount				= Math.ceil( prz / przDelta );
+	var xWidth					= Number( xWidth );
+	var yHeight					= Number( yHeight );
+	var width					= Number( Number( xWidth ) * Number( count ) ) + ( Number( offset ) * Number( ( Number( count ) + 1 ) ) );
+	//var height				= yHeight + ( offset * 2 );
+	var height					= Number( yHeight ) + ( offset * 2 );
 
-	console.log( width );
-	canvas.width	= width;
-	canvas.height	= height;
-	var yHeightM	= Math.trunc( yHeight / 5 );
-	var ctx			= canvas.getContext('2d');
-	var red			= Array( "#fa5538", "#feab9f", "#e42920", "#d53025", "#a71b24" );
-	var green		= Array( "#79e215", "#9df048", "#6dd11c", "#69c511", "#478a0c" );
-	var orange		= Array( "#fe9400", "#feb33f", "#e78302", "#ca7b04", "#aa6800" );
-	var blue		= Array( "#67e4fe", "#9ef1fd", "#1ecffe", "#1dcefe", "#17c0ed" );
-	var tColor		= Array( "#000000", "#000000", "#000000", "#000000", "#000000" );
+	canvas.width				= width;
+	canvas.height				= height;
+	var yHeightM				= Math.trunc( yHeight / 5 );
+	var ctx						= canvas.getContext('2d');
+	let red						= Array( '#fa5538', '#feab9f', '#e42920', '#d53025', '#a71b24' );
+	let green					= Array( '#79e215', '#9df048', '#6dd11c', '#69c511', '#478a0c' );
+	let orange					= Array( '#fe9400', '#feb33f', '#e78302', '#ca7b04', '#aa6800' );
+	let blue					= Array( '#67e4fe', '#9ef1fd', '#1ecffe', '#1dcefe', '#17c0ed' );
+	let tColor					= Array( '#000000', '#000000', '#000000', '#000000', '#000000' );
+	let blankColor				= '#00000037';
  
 	switch( color ){
-		case "blue":
-			for( var i = 0; i < blue.length; i++ ) tColor[ i ] = blue[ i ];
+		case 'blue':
+			for( let i = 0; i < blue.length; i++ ) tColor[ i ] = blue[ i ];
 		break;
-		case "red":
-			for( var i = 0; i < red.length; i++ ) tColor[ i ] = red[ i ];
+		case 'red':
+			for( let i = 0; i < red.length; i++ ) tColor[ i ] = red[ i ];
 		break;
-		case "green":
-			for( var i = 0; i < green.length; i++ ) tColor[ i ] = green[ i ];
+		case 'green':
+			for( let i = 0; i < green.length; i++ ) tColor[ i ] = green[ i ];
 		break;
-		case "orange":
-			for( var i = 0; i < orange.length; i++ ) tColor[ i ] = orange[ i ];
+		case 'orange':
+			for( let i = 0; i < orange.length; i++ ) tColor[ i ] = orange[ i ];
 		break;
 	}
  
- 
-	ctx.fillStyle = "#918c84";
-	ctx.fillRect( 0, 0, width, height );
- 
-	ctx.clearRect( 0, 0, offset, offset );
-	ctx.clearRect( width - offset, 0, width, offset );
-	ctx.clearRect( 0, height - offset, offset, height );
-	ctx.clearRect( width - offset, height - offset, width, height );
+	if( border ){
+		ctx.fillStyle = '#918c84';
+		ctx.fillRect( 0, 0, width, height );
+	 
+		ctx.clearRect( 0, 0, offset, offset );
+		ctx.clearRect( width - offset, 0, width, offset );
+		ctx.clearRect( 0, height - offset, offset, height );
+		ctx.clearRect( width - offset, height - offset, width, height );
+	}
+
  
 	var x = offset;
-	for( var i = 0; i < count; i++ ){
-		ctx.clearRect( x, offset, xWidth, yHeight );
+	for( let i = 0; i < count; i++ ){
+		if( border ){
+			ctx.clearRect( x, offset, xWidth, yHeight );
+		}else{
+			ctx.fillStyle = blankColor;
+			ctx.fillRect( x, offset, xWidth, yHeight );
+		}
+		
 		x += xWidth;
 		x += offset;
 	}
  
 	 
 	x = offset;
-	for( var i = 0; i < przCount; i++ ){
-		var y = offset;
-		for( var j = 0; j < 5; j++ ){
+	for( let i = 0; i < przCount; i++ ){
+		let y = offset;
+		for( let j = 0; j < tColor.length; j++ ){
 			ctx.fillStyle = tColor[ j ];
 			ctx.fillRect( x, y, xWidth, yHeightM );
 			y += yHeightM;
