@@ -5,21 +5,21 @@
 	--scrollbar-color: rgba( 70, 70, 70, .75);
 }
 
-html, body, .scrollContent{
+html, body, .scroll{
 	scrollbar-width: var(--scrollbar-width);
 	scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
 }
-body::-webkit-scrollbar, .scrollContent::-webkit-scrollbar{
+body::-webkit-scrollbar, .scroll::-webkit-scrollbar{
     width: var(--scrollbar-width-val);
     height: var(--scrollbar-width-val);
 }
-body::-webkit-scrollbar-track, .scrollContent::-webkit-scrollbar-track{
+body::-webkit-scrollbar-track, .scroll::-webkit-scrollbar-track{
     background-color: var(--scrollbar-track-color);
 }
-body::-webkit-scrollbar-thumb, .scrollContent::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb, .scroll::-webkit-scrollbar-thumb{
     background-color: var(--scrollbar-color);
 }
 
-.scrollContent{
+.scroll{
 	overflow: auto !important;
 }
