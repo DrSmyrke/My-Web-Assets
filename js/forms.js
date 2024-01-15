@@ -47,13 +47,14 @@ class Forms{
 				return this.JSON_Parse( formRequest.responseText );
 			}
 		}else{
+			var __this = this;
 			var formRequest = this.formRequest;
 			this.formRequest.onreadystatechange = function(){
 				if( formRequest.readyState == 4 ){
 					if( formRequest.status == 200 ){
-						if( this.debug ) console.log( 'sendFormData >:', formRequest.responseText );
+						if( __this.debug ) console.log( 'sendFormData >:', formRequest.responseText );
 
-						var dataObject = this.JSON_Parse( formRequest.responseText );
+						var dataObject = __this.JSON_Parse( formRequest.responseText );
 
 						if( callback != undefined ){
 							if( raw ){
@@ -64,9 +65,9 @@ class Forms{
 						}else{
 							if( dataObject.hasOwnProperty( 'success' ) && dataObject.hasOwnProperty( 'message' ) ){
 								if( dataObject.success ){
-									if( this.message != undefined ) this.message.success( dataObject.message );
+									if( __this.message != undefined ) __this.message.success( dataObject.message );
 								}else{
-									if( this.message != undefined ) this.message.error( dataObject.message );
+									if( __this.message != undefined ) __this.message.error( dataObject.message );
 								}
 							}
 						}
