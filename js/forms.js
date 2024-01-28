@@ -39,15 +39,15 @@ class Forms{
 		}
 		if( openPreloader != undefined ) openPreloader();
 		this.formRequest.send( formData );
+		var __this = this;
 
 		if( !async ){
 			if( raw ){
 				return this.formRequest.responseText;
 			}else{
-				return this.JSON_Parse( formRequest.responseText );
+				return this.JSON_Parse( this.formRequest.responseText );
 			}
 		}else{
-			var __this = this;
 			var formRequest = this.formRequest;
 			this.formRequest.onreadystatechange = function(){
 				if( formRequest.readyState == 4 ){
