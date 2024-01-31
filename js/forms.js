@@ -1,11 +1,9 @@
 class Forms{
-	formRequest;
 	debug;
 	message;
 
 	constructor( debug = false ){
 		this.debug						= debug;
-		this.formRequest				= this.makeHttpObject();
 		this.message					= undefined;
 	}
 
@@ -33,23 +31,23 @@ class Forms{
 	 */
 	sendFormData( method = 'POST', target = '.', formData = null, callback = undefined, raw = false, async = true, headers = {}, openPreloader = undefined, closePreloader = undefined )
 	{
-		this.formRequest.open( method, target, async );
+		var formRequest = this.makeHttpObject();
+		formRequest.open( method, target, async );
 		for( let key in headers ){
-			this.formRequest.setRequestHeader( key, headers[ key ] );
+			formRequest.setRequestHeader( key, headers[ key ] );
 		}
 		if( openPreloader != undefined ) openPreloader();
-		this.formRequest.send( formData );
+		formRequest.send( formData );
 		var __this = this;
 
 		if( !async ){
 			if( raw ){
-				return this.formRequest.responseText;
+				return formRequest.responseText;
 			}else{
-				return this.JSON_Parse( this.formRequest.responseText );
+				return this.JSON_Parse( formRequest.responseText );
 			}
 		}else{
-			var formRequest = this.formRequest;
-			this.formRequest.onreadystatechange = function(){
+			formRequest.onreadystatechange = function(){
 				if( formRequest.readyState == 4 ){
 					if( formRequest.status == 200 ){
 						if( __this.debug ) console.log( 'sendFormData >:', formRequest.responseText );
