@@ -7,6 +7,7 @@ class SVGImages{
 		this.images				= {
 			book: { width: 24, height: 24, img: '<path class="stroke" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path class="stroke" d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>' },
 
+			chart: { width: 24, height: 24, img: '<path class="stroke" d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path class="stroke" d="M22 12A10 10 0 0 0 12 2v10z"></path>' },
 			close: { width: 24, height: 24, img: '<path class="stroke" d="M15 9.00004L9 15M15 15L9 9.00004M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' },
 			contrast: { width: 512, height: 512, img: '<circle class="stroke" cx="256" cy="256" r="208" style="stroke-width:32px"/><path class="fill" d="M256,464C141.12,464,48,370.88,48,256S141.12,48,256,48Z"/>' },
 			contrast2: { width: 24, height: 24, img: '<path class="stroke" d="M20.83,7.32h0a10.11,10.11,0,0,0-3.44-3.73l0,0h0A10,10,0,1,0,12,22h.29A10,10,0,0,0,20.83,7.32ZM11,19.93A8,8,0,0,1,11,4.07ZM13,4.07a8.07,8.07,0,0,1,2.49.74L13,9.12Zm0,9L17.17,5.9a8.14,8.14,0,0,1,1.58,1.83L13,17.69Zm1.15,6.58L19.74,10A8.16,8.16,0,0,1,20,12,8,8,0,0,1,14.15,19.7Z"/>' },
