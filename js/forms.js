@@ -129,4 +129,24 @@ class Forms{
 			}
 		}
 	}
+
+	checkHexField( field )
+	{
+		if( field == undefined ){
+			console.error( 'field is undefined' );
+			return false;
+		}
+
+		if( field.value.length <= 2 ) return;
+		let str = field.value.toLowerCase();
+
+		// const regex = /^#?([A-Fa-f0-9]{6}){1,2}$/g;
+		const regex = /^0x[0-9a-fA-F]+$/;
+
+		const isValid = regex.test( str );
+
+		field.setCustomValidity( ( isValid ) ? '' : 'Invalid field.' );
+
+		return isValid;
+	}
 }
