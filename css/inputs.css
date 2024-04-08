@@ -1,10 +1,16 @@
-input[type="text"], input[type="number"], input[type="password"], input[type="date"], input[type="time"], textarea{
-	background: linear-gradient( to top, #F5F5F5, #D4D4D4 );
-	box-shadow: inset 0px 0px 1px #969696, inset 0px 0px 2px #D5D5D5;
+:root{
+	--main-input-high-color: #D5D5D5;
+	--main-input-low-color: #F5F5F5;
 }
-button, input[type="button"], input[type="submit"], select{
+
+input[type='text'], input[type='number'], input[type='password'], input[type='date'], input[type='time'], textarea{
+	background: linear-gradient( to top, var( --main-input-low-color ), var( --main-input-high-color ) );
+	box-shadow: inset 0px 0px 1px #969696, inset 0px 0px 2px var( --main-input-high-color );
+}
+button, input[type='button'], input[type='submit'], select{
 	transition: none;
-	background: linear-gradient( to top, #D4D4D4, #F5F5F5 );
+	background: linear-gradient( to top, #D4D4D4, var( --main-input-low-color ) );
+	
 }
 input, button, select, textarea{
 	outline: none;
@@ -14,6 +20,22 @@ input, button, select, textarea{
 	border-radius: 3px;
 	border: 1.2px solid #A0A0A0;
 }
-button:active, input[type="button"]:active, input[type="submit"]:active {
+button:active, input[type='button']:active, input[type='submit']:active {
 	box-shadow: inset 1px 1px 1px #969696, inset 0px 0px 1px #C1C1C1;
+}
+input:invalid {
+	border-top: 2px solid #ff0000;
+	animation: errorGlow 1s infinite;
+	animation-timing-function: linear;
+	animation-direction: alternate;
+}
+
+
+@keyframes errorGlow {
+	from {
+		background: linear-gradient( to top, var( --main-input-low-color ), rgba(179, 6, 6, 0.635) );
+	}
+	to {
+		background: linear-gradient( to top, var( --main-input-low-color ), var( --main-input-high-color ) );
+	}
 }
