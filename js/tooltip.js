@@ -64,12 +64,12 @@ class Tooltip{
 	{
 		if( !this.init ) return;
 
+		this.tooltipObj.className = 'hide';
+
 		event.target.removeEventListener( 'mouseout', null );
 
 		// let box = document.getElementById( tooltipID );
 		if( this.tooltipObj == undefined ) return;
-
-		this.tooltipObj.className = 'hide';
 	}
 
 	/**
